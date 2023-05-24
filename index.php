@@ -13,7 +13,7 @@
 <body>
     <header>
         <div class="top-title">歡迎來到家族記帳管理系統 </div>
-        <div>
+        <div class="top-center">
             <?php
             if (!isset($_SESSION['login'])) {
             ?>
@@ -38,16 +38,19 @@
                 <button class="system" name="system" id="system">
                     設定
                 </button>
-                <div class="menu-opt">
-                    <div>收支登記</div>
-                    <div>收支清單</div>
-                    <div>類別管理</div>
-                    <div>特定查詢</div>
-                    <div>投票功能</div>
-                    <div>歷史紀錄查詢</div>
-                </div>
-            <?php } ?>
-        </div>
+                <?php } ?>
+            </div>
+            <div class="menu-opt" id="menu-opt">
+                <div onclick="location.href='?do=add_summary'">收支登記</div>
+                <div onclick="location.href='?do=summary_list'">收支清單</div>
+                <div>類別管理</div>
+                <div>特定查詢</div>
+                <div>投票功能</div>
+            </div>
+            <div class="system-opt" id="system-opt">
+                <div>帳號管理</div>
+                <div>歷史紀錄查詢</div>
+            </div>
     </header>
     <main>
 
@@ -72,6 +75,36 @@
 
     </main>
     <footer></footer>
-</body>
+    <script>
+        const menuBtn=document.getElementById('menu');
+        const menuOptBtn=document.getElementById('menu-opt');
+        const systemBtn=document.getElementById('system');
+        const systemOptBtn=document.getElementById('system-opt');
 
+        menuBtn.addEventListener('click',() => {
+            systemOptBtn.style.display="none";
+            menuOptBtn.style.display="flex";
+            menuBtn.style.background="blue";
+            systemBtn.style.background="rgb(116, 156, 248)"
+        });
+        menuOptBtn.addEventListener('click',() => {
+            menuOptBtn.style.display="none";
+            menuBtn.style.background="rgb(116, 156, 248)";
+        });
+        systemBtn.addEventListener('click',() => {
+            menuOptBtn.style.display="none";
+            systemOptBtn.style.display="flex";
+            systemBtn.style.background="blue";
+            menuBtn.style.background="rgb(116, 156, 248)"
+        });
+        systemOptBtn.addEventListener('click',() => {
+            systemOptBtn.style.display="none";
+            menuOptBtn.style.background="rgb(116, 156, 248)";
+        });
+
+       
+
+    </script>
+    
+</body>
 </html>
