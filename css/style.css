@@ -1,0 +1,134 @@
+*{
+    box-sizing: border-box;
+    margin-top : 0 ;
+    margin-left : 0;
+    text-align: center;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    flex-basis: 100%;
+    height: 5vh;
+    min-height: 40px;
+    background-color: rgb(11, 171, 0);
+    font-size: 20px;
+    border: 2px solid darkblue;
+    
+    
+}
+header>.top-title{
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+header>div{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+header>.top-menu{
+   flex-basis:30%;
+}
+header>div>a{
+    text-decoration-line:none ;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.menu-opt{
+    display: block;
+    position: relative;
+    z-index: 2;
+    width: 200px;
+    height: 300px;
+    top:0%;
+    left:15%;
+    background-color: rgb(252, 153, 170,0.5);
+    border: 6px double plum;
+    display: flex;
+    flex-direction:column ;
+}
+.menu-opt>div{
+    flex-basis: calc( 100% / 6 );
+    width: 100%;
+    background-color: rgb(255, 157, 172,0.5);
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.474);
+    color: white;
+    font-weight: bolder;
+}
+/* .menu{
+
+}
+.system{
+
+} */
+.summary-all{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-basis: 50vh;
+    width: 100%;
+    border-left: 2px solid darkblue;
+    border-right: 2px solid darkblue;
+    border-bottom: 2px solid darkblue;
+}
+.summary-all-top{
+    flex-basis: 5vh;
+    background-color: rgb(251, 210, 149);
+}
+.summary-all-content{
+    flex-basis: 35vh;
+    background-color: rgb(251, 210, 149);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.summary-all-footer{
+    flex-basis: 5vh;
+    background-color: rgb(251, 210, 149);
+}
+.vote-list{
+    display: flex;
+    flex-basis: 100%;
+    height: 45vh;
+    border-left: 2px solid darkblue;
+    border-right: 2px solid darkblue;
+    border-bottom: 2px solid darkblue;
+    background-color: rgb(205, 153, 253);
+    padding: 20px;
+}
+.vote-list-form{
+    border: 1px solid black;
+    flex-basis: 100%;
+}
+.summary-private{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-basis: 50vh;
+    width: 100%;
+    border-left: 2px solid darkblue;
+    border-right: 2px solid darkblue;
+    border-bottom: 2px solid darkblue;
+}
+.summary-private-top{
+    flex-basis: 5vh;
+    background-color: rgb(255, 184, 77);
+}
+.summary-private-content{
+    flex-basis: 35vh;
+    background-color: rgb(255, 184, 77);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.summary-private-footer{
+    flex-basis: 5vh;
+    background-color: rgb(255, 184, 77);
+}
