@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../css/style_addsummary.css">
 <div class="content">
     <div class="content-top">
         <div name="incomeBtn" id="incomeBtn" value="0">收入</div>
@@ -7,26 +8,33 @@
         <div class="content-middle-left"></div>
         <div class="content-middle-center">
             <form action="./api/add_summary.php" method="post">
-                <div class="form-title">
-                    <div><label for="eff_time">發生日期</label></div>
-                    <div><label for="project">項目</label></div>
-                    <div><label for="details">細節</label></div>
-                    <div><label for="category">類別</label></div>
-                    <div><label for="amount">數量</label></div>
-                    <div><label for="private">公開</label></div>
-                    <div><label for="continuous">持續性</label></div>
-                </div>
-                <div class="form-input">
-                    <input type="date" name="eff_time" id="eff_time">
-                    <input type="text" name="project" id="project">
-                    <input type="text" name="details" id="details">
-                    <input type="text" name="category" id="category">
-                    <input type="number" name="amount" id="amount">
-                    <input type="text" name="private" id="private">
-                    <input type="text" name="continuous" id="continuous">
-                </div>
+                <table class="add-table">
+                    <tr>
+                        <th><label for="eff_time">發生日期</label></th>
+                        <th><label for="project">項目</label></th>
+                        <th><label for="details">細節</label></th>
+                        <th><label for="category">類別</label></th>
+                        <th><label for="amount">數量</label></th>
+                        <th><label for="pravite">備註</label></th>
+                    </tr>
+                    <tr>
+                        <td><input type="date" name="eff_time" id="eff_time"></td>
+                        <td><input type="text" name="project" id="project"></td>
+                        <td><input type="text" name="details" id="details"></td>
+                        <td><input type="text" name="category" id="category"></td>
+                        <td><input type="number" name="amount" id="amount"></td>
+                        <td>
+                            <input type="radio" name="private" value="0" checked>公開
+                            <input type="radio" name="private" value="1">不公開<br>
+                            <input type="radio" name="continuous" value="0" checked>無持續
+                            <input type="radio" name="continuous" value="1">有持續
+                        </td>
+                    </tr>
+                </table>
+                <button type="submit" value="確認"></button>
             </form>
         </div>
         <div class="content-middle-left"></div>
     </div>
+    <div class="content-footer"></div>
 </div>
