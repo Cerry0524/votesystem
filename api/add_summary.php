@@ -26,3 +26,5 @@ include_once "../db.php";
     $sql_inerstNew="SELECT `summary`.`project`,`categories`.`category`,`summary`.`details`,`summary`.`amount`,`summary`.`effective_time`, `summary`.`private`, `summary`.`continuous` 
                     FROM `summary`,`categories`
                     WHERE `summary`.`category_id`=`categories`.id`";
+
+header("location:../index.php?do=summary_list");

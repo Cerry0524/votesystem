@@ -3,7 +3,7 @@ body{
 }
 .content{
     display: flex;
-    flex-direction: row;
+    flex-direction: ;
     flex-basis: 100%;
 }
 .content-top{
@@ -33,16 +33,17 @@ body{
 }
 .add-table{
     width: 100%;
-    border-collapse:collapse;
-    border: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
-.add-table th{
+.add-table .th{
     background-color: rgb(91, 155, 213);
     color: white;
     height: 40px;
 }
 
-.add-table tr{
+.add-table .tr{
     background-color: rgb(210, 222,239);
     color:black;
     height: 40px;
