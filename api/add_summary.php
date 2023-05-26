@@ -1,12 +1,23 @@
 <?php
 include_once "../db.php";
 
+echo "<pre>";
 print_r($_POST['project']);
+print_r($_POST['details']);
+print_r($_POST['amount']);
+print_r($_POST['price']);
+print_r($_POST['eff_time']);
+print_r($_POST['private']);
+print_r($_POST['continuous']);
+echo "</pre>";
+
 
 for ($i=0; $i <count($_POST['project']); $i++) { 
     
+    $j = $i + 1; 
+
     $sql = "INSERT INTO `summary`( `project`, `details`, `amount`,`price`,`effective_time`,`private`, `continuous`)
-                          VALUES ('{$_POST['project'][$i]}', '{$_POST['details'][$i]}', '{$_POST['amount'][$i]}','{$_POST['price'][$i]}', '{$_POST['eff_time'][$i]}', '{$_POST['private'][$i][$i]}', '{$_POST['continuous'][$i][$i]}')";
+                          VALUES ('{$_POST['project'][$i]}', '{$_POST['details'][$i]}', '{$_POST['amount'][$i]}','{$_POST['price'][$i]}', '{$_POST['eff_time'][$i]}', '{$_POST['private'][$i][0]}', '{$_POST['continuous'][$i][0]}')";
    
     $pdo->exec($sql);
     
@@ -28,7 +39,8 @@ for ($i=0; $i <count($_POST['project']); $i++) {
     $pdo->exec($sql_category_update);
 }    
 
+
+
 $sql_inerstNew="SELECT `summary`.`project`,`categories`.`category`,`summary`.`details`,`summary`.`amount`,`summary`.`price`,`summary`.`effective_time`, `summary`.`private`, `summary`.`continuous` 
                 FROM `summary`,`categories`
                 WHERE `summary`.`category_id`=`categories`.`id`";
-?>

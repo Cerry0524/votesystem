@@ -4,8 +4,6 @@
 
 <form action="./api/add_summary.php" method="post">
 
-
-
     <div class="content-left"></div>
     <table class="add-table">
         <tr class="content-top">
