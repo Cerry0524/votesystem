@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>家族記帳管理系統</title>
     <link rel="stylesheet" href="./css/style.css">
+    <script src="../js/jquery-3.7.0.min.js"></script> <!-- 引進jquery -->
 </head>
 
 <body>
@@ -43,7 +44,7 @@
             <div class="menu-opt" id="menu-opt">
                 <div onclick="location.href='?do=add_summary'">收支登記</div>
                 <div onclick="location.href='?do=summary_list'">收支清單</div>
-                <div>類別管理</div>
+                <div onclick="location.href='?do=category_list'">類別管理</div>
                 <div>特定查詢</div>
                 <div>投票功能</div>
             </div>
@@ -57,12 +58,15 @@
         <?php
 
         $do = $_GET['do'] ?? 'list';
-
+                
         $file = "./front/" . $do . ".php";
-
+        $fileBack = "./back/" . $do . ".php";
+       
         if (file_exists($file)) {
             include $file;
-        } else {
+        } elseif(file_exists($fileBack)){
+            include $fileBack;
+        }else{
             if (!isset($_SESSION['login'])) {
                 include "./front/summary_all.php";
                 include "./front/vote_list.php";

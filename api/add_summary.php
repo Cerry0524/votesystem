@@ -41,6 +41,4 @@ for ($i=0; $i <count($_POST['project']); $i++) {
 
 
 
-$sql_inerstNew="SELECT `summary`.`project`,`categories`.`category`,`summary`.`details`,`summary`.`amount`,`summary`.`price`,`summary`.`effective_time`, `summary`.`private`, `summary`.`continuous` 
-                FROM `summary`,`categories`
-                WHERE `summary`.`category_id`=`categories`.`id`";
+

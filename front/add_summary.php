@@ -1,6 +1,4 @@
 <link rel="stylesheet" href="../css/style_addsummary.css">
-<script src="../js/jquery-3.7.0.min.js"></script> <!-- 引進jquery -->
-
 
 <form action="./api/add_summary.php" method="post">
 
