@@ -20,7 +20,9 @@
             <th class="add-table-th8">增減項目</th>
             <th style="width: 5%;"></th>
         </tr>
-        <tr class=tdInput style='background-color: rgb(210, 222,239);height: 40px;border-bottom: 1px solid dodgerblue; '>
+        <tr class=tdInput style='background-color: rgb(210, 222,239);
+                                 height: 40px;
+                                 border-bottom: 1px solid dodgerblue; '>
             <th style="width: 5%;"></th>
             <td><input type="date" name="eff_time[]" id="eff_time"></td>
             <td><input type="text" name="project[]" id="project"></td>
@@ -53,10 +55,15 @@
 
 <script>
     let optionIndex = 1;
+    let count = 1;
 
     function addOption(el) {
+        
         $(".lastInput").remove();
-        let opt = `<tr class=tdInput style='background-color: rgb(210, 222,239);height: 40px;border-bottom: 1px solid dodgerblue; '>
+
+        let opt = `<tr class=tdInput style='background-color: rgb(210, 222,239);
+                                            height: 40px;
+                                            border-bottom: 1px solid dodgerblue; '>
             <th style="width: 5%;"></th>
             <td><input type="date" name="eff_time[]" id="eff_time"></td>
             <td><input type="text" name="project[]" id="project"></td>
@@ -79,13 +86,19 @@
             <tr class=lastInput>
             <th style="width: 5%;" colspan="10"></th>
             </tr>`
+
         $(".tdInput").parent().append(opt);
         
-        optionIndex++; // 每次新增時增加索引值
+        optionIndex += 1; // 每次新增時增加索引值
+        count += 1;//計算次數
+        
     }
 
     function removeOption(el) {
         let dom = $(el).parent().parent()
-        $(dom).remove();
+        if (count>1){
+            $(dom).remove();
+            count -= 1;
+        }
     }
 </script>
