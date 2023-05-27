@@ -1,20 +1,6 @@
-<link rel="stylesheet" href="../css/style_searchsummary.css">
+<link rel="stylesheet" href="../css/style_summarylist.css">
 
-<?php
-//判斷網址帶term跟order值來決定是遞增或遞減排序，如果沒有值預設時間遞增排序
-if (!empty($_GET['term']) || !empty($_GET['order'])) {
-       switch ($_GET['term']) {
-              case 'time':
-                     $order = "./api/summary_list_" .
-                            (($_GET['order'] == 'asc') ? 'asc' : 'desc') .
-                            ".php";
-                     break;
-       }
-       include $order;
-} else {
-       include './api/summary_list_asc.php';
-}
-?>
+<?php include './api/summary_list.php'; ?>
 
 
 
@@ -48,11 +34,61 @@ if (!empty($_GET['term']) || !empty($_GET['order'])) {
                             </div>
                      </div>
               </th>
-              <th class="search-table-th3">項目</th>
-              <th class="search-table-th4">細節</th>
-              <th class="search-table-th5">類別</th>
-              <th class="search-table-th6">數量</th>
-              <th class="search-table-th7">金額</th>
+              <th class="search-table-th3">
+                     <div id="projAscBtn">
+                            ▲
+                     </div>
+                     <div>
+                            項目
+                     </div>
+                     <div id="projDescBtn">
+                            ▼
+                     </div>
+              </th>
+              <th class="search-table-th4">
+                     <div id="detailAscBtn">
+                            ▲
+                     </div>
+                     <div>
+                            細節
+                     </div>
+                     <div id="detailDescBtn">
+                            ▼
+                     </div>
+              </th>
+              <th class="search-table-th5">
+                     <div id="cateAscBtn">
+                            ▲
+                     </div>
+                     <div>
+                            類別
+                     </div>
+                     <div id="cateDescBtn">
+                            ▼
+                     </div>
+              </th>
+              <th class="search-table-th6">
+                     <div id="amontAscBtn">
+                            ▲
+                     </div>
+                     <div>
+                            數量
+                     </div>
+                     <div id="amontDescBtn">
+                            ▼
+                     </div>
+              </th>
+              <th class="search-table-th7">
+                     <div id="priceAscBtn">
+                            ▲
+                     </div>
+                     <div>
+                            金額
+                     </div>
+                     <div id="priceDescBtn">
+                            ▼
+                     </div>
+              </th>
               <th class="search-table-th8">
                      <div class="privateBtn">
                             <div>公開
@@ -65,7 +101,7 @@ if (!empty($_GET['term']) || !empty($_GET['order'])) {
               </th>
               <th class="search-table-th9">
                      <div class="contBtn">
-                            <div>持續性</div>
+                            <div>固定收支</div>
                             <div>否
                                    <input type="checkbox" id="contNoBtn">
                             </div>
@@ -88,7 +124,7 @@ if (!empty($_GET['term']) || !empty($_GET['order'])) {
                      <td><?= $summary_list['數量']; ?></td>
                      <td><?= $summary_list['金額']; ?></td>
                      <td><?= ($summary_list['公開/私人']) ? "私人" : "公開"; ?></td>
-                     <td><?= ($summary_list['持續性']) ? "是" : "否"; ?></td>
+                     <td><?= ($summary_list['持續性']) ? "是" : ""; ?></td>
                      <th style="width: 5%;"></th>
               </tr>
        <?php } ?>
@@ -101,26 +137,50 @@ if (!empty($_GET['term']) || !empty($_GET['order'])) {
 <script>
        const timeAscBtn = document.getElementById('timeAscBtn');
        const timeDescBtn = document.getElementById('timeDescBtn');
+
+       const projAscBtn = document.getElementById('projAscBtn');
+       const projDescBtn = document.getElementById('projDescBtn');
+
+       const detailAscBtn = document.getElementById('detailAscBtn');
+       const detailDescBtn = document.getElementById('detailDescBtn');
+
+       const cateAscBtn = document.getElementById('cateAscBtn');
+       const cateDescBtn = document.getElementById('cateDescBtn');
+
+       const amontAscBtn = document.getElementById('amontAscBtn');
+       const amontDescBtn = document.getElementById('amontDescBtn');
+
+       const priceAscBtn = document.getElementById('priceAscBtn');
+       const priceDescBtn = document.getElementById('priceDescBtn');
+
+
        const classInBtn = document.getElementById('classInBtn');
-       console.log(classInBtn);
        const classOutBtn = document.getElementById('classOutBtn');
-       console.log(classOutBtn);
+
        const privateNoBtn = document.getElementById('privateNoBtn');
-       console.log(privateNoBtn);
        const privateYesBtn = document.getElementById('privateYesBtn');
-       console.log(privateYesBtn);
+
        const contNoBtn = document.getElementById('contNoBtn');
-       console.log(contNoBtn);
        const contYesBtn = document.getElementById('contYesBtn');
-       console.log(contYesBtn);
+
 
        let url = new URLSearchParams(window.location.search);
        let urlClass = url.get('class');
        let urlPrivate = url.get('private');
        let urlCont = url.get('cont');
 
+       let clickOrder = [];
+       let buttons = [
+              'timeAscBtn', 'timeDescBtn',
+              'projAscBtn', 'projDescBtn',
+              'detailAscBtn', 'detailDescBtn',
+              'cateAscBtn', 'cateDescBtn',
+              'amontAscBtn', 'amontDescBtn',
+              'priceAscBtn', 'priceDescBtn'
+       ];
+       //定義按鈕陣列
 
-       function time(timeOrder) {
+       function time(timeOrder) { //時間排序
               switch (timeOrder) {
                      case 'asc':
                             return '&time=asc';
@@ -128,14 +188,71 @@ if (!empty($_GET['term']) || !empty($_GET['order'])) {
                      case 'desc':
                             return '&time=desc';
                             break;
-                     default:
-                            return '&time=asc';
+              }
+
+       }
+
+       function proj(projOrder) { //項目排序
+              switch (projOrder) {
+                     case 'asc':
+                            return '&proj=asc';
+                            break;
+                     case 'desc':
+                            return '&proj=desc';
                             break;
               }
 
        }
 
-       function classBtn() {
+       function detail(detailOrder) { //細節排序
+              switch (detailOrder) {
+                     case 'asc':
+                            return '&detail=asc';
+                            break;
+                     case 'desc':
+                            return '&detail=desc';
+                            break;
+              }
+
+       }
+
+       function cate(cateOrder) { //類別排序
+              switch (cateOrder) {
+                     case 'asc':
+                            return '&cate=asc';
+                            break;
+                     case 'desc':
+                            return '&cate=desc';
+                            break;
+              }
+
+       }
+
+       function amont(amontOrder) { //數量排序
+              switch (amontOrder) {
+                     case 'asc':
+                            return '&amont=asc';
+                            break;
+                     case 'desc':
+                            return '&amont=desc';
+                            break;
+              }
+
+       }
+
+       function price(priceOrder) { //金額排序
+              switch (priceOrder) {
+                     case 'asc':
+                            return '&price=asc';
+                            break;
+                     case 'desc':
+                            return '&price=desc';
+                            break;
+              }
+
+       }
+
+       function classBtn() { //收支選擇
               if (classInBtn.checked && classOutBtn.checked) {
                      // console.log('All');
                      return '&class=all';
@@ -151,7 +268,7 @@ if (!empty($_GET['term']) || !empty($_GET['order'])) {
               }
        }
 
-       function privateBtn() {
+       function privateBtn() { //公開選擇
               if (privateYesBtn.checked && privateNoBtn.checked) {
                      // console.log('All');
                      return '&private=all';
@@ -167,7 +284,7 @@ if (!empty($_GET['term']) || !empty($_GET['order'])) {
               }
        }
 
-       function contBtn() {
+       function contBtn() { //固定收支選擇
               if (contYesBtn.checked && contNoBtn.checked) {
                      // console.log('All');
                      return '&cont=all';
@@ -183,11 +300,26 @@ if (!empty($_GET['term']) || !empty($_GET['order'])) {
               }
        }
 
-       function newurl(timeOrder) {
-              // console.log('url');
-              location.href = '?do=summary_list' + time(timeOrder) + classBtn() + privateBtn() + contBtn();
-
+       function newurl(
+              timeOrder,
+              projOrder,
+              detailOrder,
+              cateOrder,
+              amontOrder,
+              priceOrder) {
+                     
+              location.href = '?do=summary_list' +
+                     time(timeOrder) +
+                     classBtn() +
+                     proj(projOrder) +
+                     detail(detailOrder) +
+                     cate(cateOrder) +
+                     amont(amontOrder) +
+                     price(priceOrder) +
+                     privateBtn() +
+                     contBtn() ;
        }
+
 
        switch (urlClass) {
               case 'all':
@@ -240,6 +372,43 @@ if (!empty($_GET['term']) || !empty($_GET['order'])) {
        timeDescBtn.addEventListener('click', function() {
               newurl('desc');
        });
+
+       projAscBtn.addEventListener('click', function() {
+              newurl('asc');
+       });
+       projDescBtn.addEventListener('click', function() {
+              newurl('desc');
+       });
+
+       detailAscBtn.addEventListener('click', function() {
+              newurl('asc');
+       });
+       detailDescBtn.addEventListener('click', function() {
+              newurl('desc');
+       });
+
+       cateAscBtn.addEventListener('click', function() {
+              newurl('asc');
+       });
+       cateDescBtn.addEventListener('click', function() {
+              newurl('desc');
+       });
+
+       amontAscBtn.addEventListener('click', function() {
+              newurl('asc');
+       });
+       amontDescBtn.addEventListener('click', function() {
+              newurl('desc');
+       });
+
+       priceAscBtn.addEventListener('click', function() {
+              newurl('asc');
+       });
+       priceDescBtn.addEventListener('click', function() {
+              newurl('desc');
+       });
+
+
        classInBtn.addEventListener('change', function() {
               newurl();
        });
