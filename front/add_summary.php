@@ -10,7 +10,7 @@
         </tr>
         <tr class="add-table-tr1">
             <th style="width: 5%;"></th>
-            <th class="add-table-th1"><label for="eff_time">發生日期</label></th>
+            <th class="add-table-th1"><label for="eff_time">發生日期</label>△▽</th>
             <th class="add-table-th2"><label for="project">項目</label></th>
             <th class="add-table-th3"><label for="details">細節</label></th>
             <th class="add-table-th4"><label for="category">類別</label></th>

@@ -1,7 +1,5 @@
 *{
     box-sizing: border-box;
-    margin-top : 0 ;
-    margin-left : 0;
     text-align: center;
 }
 header{
@@ -25,19 +23,23 @@ header>div{
 }
 header>.top-title{
     color: white;
-    padding-top: 5px;
+    padding-top: 10px;
     padding-bottom: 5px;
     flex-basis: 40%;
     min-width:130px;
     text-align: left;
+    /* border: 1px solid black; */
 }
-header>.center{
-    flex-basis: 25%;
+header>.top-center{
+    flex-basis: 20%;
+    padding-top: 10px;
+    /* border: 1px solid black; */
 }
 
 header>.top-menu{
-   flex-basis:35%;
+   flex-basis:40%;
    text-align: right;
+   /* border: 1px solid black; */
 }
 header>div>a{
     text-decoration-line:none ;
@@ -78,7 +80,7 @@ header>div>a{
     flex-basis: calc( 100% / 5 );
     width: 100%;
     background-color: rgb(255, 157, 172,0.5);
-    padding: 5px;
+    padding: 12px;
     border: 1px solid rgba(255, 255, 255, 0.474);
     color: white;
     font-weight: bolder;
@@ -193,4 +195,11 @@ header>div>a{
     background-color: rgb(241, 173,241 );
     padding-top: 5px;
     padding-bottom: 5px;
+}
+.classBtn{
+    width: 100%;
+    display: flex;
+}
+.classBtn>div{
+    width: calc(100% / 3);
 }
