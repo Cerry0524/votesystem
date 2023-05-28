@@ -163,7 +163,6 @@
 
        const contNoBtn = document.getElementById('contNoBtn');
        const contYesBtn = document.getElementById('contYesBtn');
-       //綁定按鈕不可以拉到function後面去，程式會失效
 
        let url = new URLSearchParams(window.location.search); //取得新網址
        let urlClass = url.get('class'); //解析新網址get class值
@@ -171,7 +170,20 @@
        let urlCont = url.get('cont'); //解析新網址get cont值
 
        let clickOrder = []; //宣告按鈕陣列
-
+       let button = [
+              'timeAscBtn',
+              'timeDescBtn',
+              'projAscBtn',
+              'projDescBtn',
+              'detailAscBtn',
+              'detailDescBtn',
+              'cateAscBtn',
+              'cateDescBtn',
+              'amontAscBtn',
+              'amontDescBtn',
+              'priceAscBtn',
+              'priceDescBtn',
+       ];
 
        function time(timeOrder) { //時間排序
               switch (timeOrder) {
@@ -318,8 +330,9 @@
               cateOrder,
               amontOrder,
               priceOrder,
-              buttonId) {
-              location.href = '?do=summary_list' +
+              oldClickOrderString
+       ) {
+              let urlFinal = '?do=summary_list' +
                      time(timeOrder) +
                      classBtn() +
                      proj(projOrder) +
@@ -330,22 +343,27 @@
                      privateBtn() +
                      contBtn() +
                      '&btn=' +
-                     buttonId;
+                     oldClickOrderString;
+              location.href = urlFinal;
        }
 
        function handleClick(event) { //抓取網址列get數值配合監聽click按鈕以switch配合buttonId輸出n輸出newurl
               const buttonId = event.target.id;
+              let newclickOrder = clickOrder.filter(function(tmpClick) { //filter：基於指定的條件過濾陣列中的元素
 
-                     let newclickOrder = clickOrder.filter(function(tmpClick) { //filter：基於指定的條件過濾陣列中的元素
+                     return !tmpClick.startsWith(buttonId.substring(0, 3)) && tmpClick !== buttonId;
+                     //startsWith(）特定字串開頭，用substring抓前3個字母一樣的
+              });
 
-                            return !tmpClick.startsWith(buttonId.substring(0, 3)) && tmpClick !== buttonId;
-                            //startsWith(）特定字串開頭，用substring抓前3個字母一樣的
-                     });
-              
               clickOrder = newclickOrder;
               clickOrder.push(buttonId); //把buttonId放到clickOrder陣列尾巴（PUSH指令）
-              newclickOrderString = clickOrder.join('-');
-              
+              let newclickOrderString = clickOrder.map(function(buttonId) {
+                     let index = button.indexOf(buttonId);
+                     return index + 1;
+              }).toString();
+
+              oldClickOrderString = newclickOrderString;
+
               const timeOrder = url.get('time');
               const projOrder = url.get('proj');
               const detailOrder = url.get('detail');
@@ -353,55 +371,58 @@
               const amontOrder = url.get('amont');
               const priceOrder = url.get('price');
 
+
+
               switch (buttonId) {
                      case 'timeAscBtn':
-                            // console.log(newclickOrderString);
+
                             newurl('asc', projOrder, detailOrder, cateOrder, amontOrder, priceOrder, newclickOrderString);
                             break;
                      case 'timeDescBtn':
-                            // console.log(newclickOrderString);
+
                             newurl('desc', projOrder, detailOrder, cateOrder, amontOrder, priceOrder, newclickOrderString);
                             break;
                      case 'projAscBtn':
-                            // console.log(newclickOrderString);
+
                             newurl(timeOrder, 'asc', detailOrder, cateOrder, amontOrder, priceOrder, newclickOrderString);
                             break;
                      case 'projDescBtn':
-                            // console.log(newclickOrderString);
+
                             newurl(timeOrder, 'desc', detailOrder, cateOrder, amontOrder, priceOrder, newclickOrderString);
                             break;
                      case 'detailAscBtn':
-                            // console.log(newclickOrderString);
+
                             newurl(timeOrder, projOrder, 'asc', cateOrder, amontOrder, priceOrder, newclickOrderString);
                             break;
                      case 'detailDescBtn':
-                            // console.log(newclickOrderString);
+
                             newurl(timeOrder, projOrder, 'desc', cateOrder, amontOrder, priceOrder, newclickOrderString);
                             break;
                      case 'cateAscBtn':
-                            // console.log(newclickOrderString);
+
                             newurl(timeOrder, projOrder, detailOrder, 'asc', amontOrder, priceOrder, newclickOrderString);
                             break;
                      case 'cateDescBtn':
-                            // console.log(newclickOrderString);
+
                             newurl(timeOrder, projOrder, detailOrder, 'desc', amontOrder, priceOrder, newclickOrderString);
                             break;
                      case 'amontAscBtn':
-                            // console.log(newclickOrderString);
+
                             newurl(timeOrder, projOrder, detailOrder, cateOrder, 'asc', priceOrder, newclickOrderString);
                             break;
                      case 'amontDescBtn':
-                            // console.log(newclickOrderString);
+
                             newurl(timeOrder, projOrder, detailOrder, cateOrder, 'desc', priceOrder, newclickOrderString);
                             break;
                      case 'priceAscBtn':
-                            // console.log(newclickOrderString);
+
                             newurl(timeOrder, projOrder, detailOrder, cateOrder, amontOrder, 'asc', newclickOrderString);
                             break;
                      case 'priceDescBtn':
-                            // console.log(newclickOrderString);
+
                             newurl(timeOrder, projOrder, detailOrder, cateOrder, amontOrder, 'desc', newclickOrderString);
                             break;
+
               }
 
        }
