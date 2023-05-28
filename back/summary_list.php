@@ -135,6 +135,7 @@
 
 
 <script>
+       //綁定按鈕不可以拉到function後面去，程式會失效
        const timeAscBtn = document.getElementById('timeAscBtn');
        const timeDescBtn = document.getElementById('timeDescBtn');
 
@@ -162,15 +163,15 @@
 
        const contNoBtn = document.getElementById('contNoBtn');
        const contYesBtn = document.getElementById('contYesBtn');
+       //綁定按鈕不可以拉到function後面去，程式會失效
 
+       let url = new URLSearchParams(window.location.search); //取得新網址
+       let urlClass = url.get('class'); //解析新網址get class值
+       let urlPrivate = url.get('private'); //解析新網址get private值
+       let urlCont = url.get('cont'); //解析新網址get cont值
 
-       let url = new URLSearchParams(window.location.search);
-       let urlClass = url.get('class');
-       let urlPrivate = url.get('private');
-       let urlCont = url.get('cont');
-
-       let clickOrder = [];
-       let buttons = [
+       let clickOrder = []; //宣告按鈕陣列
+       let buttons = [ //定義按鈕陣列 
               'timeAscBtn', 'timeDescBtn',
               'projAscBtn', 'projDescBtn',
               'detailAscBtn', 'detailDescBtn',
@@ -178,7 +179,7 @@
               'amontAscBtn', 'amontDescBtn',
               'priceAscBtn', 'priceDescBtn'
        ];
-       //定義按鈕陣列
+
 
        function time(timeOrder) { //時間排序
               switch (timeOrder) {
@@ -187,6 +188,9 @@
                             break;
                      case 'desc':
                             return '&time=desc';
+                            break;
+                     default:
+                            return '&time=asc';
                             break;
               }
 
@@ -200,6 +204,9 @@
                      case 'desc':
                             return '&proj=desc';
                             break;
+                     default:
+                            return '&proj=asc';
+                            break;
               }
 
        }
@@ -211,6 +218,9 @@
                             break;
                      case 'desc':
                             return '&detail=desc';
+                            break;
+                     default:
+                            return '&detail=asc';
                             break;
               }
 
@@ -224,6 +234,9 @@
                      case 'desc':
                             return '&cate=desc';
                             break;
+                     default:
+                            return '&cate=asc';
+                            break;
               }
 
        }
@@ -236,6 +249,9 @@
                      case 'desc':
                             return '&amont=desc';
                             break;
+                     default:
+                            return '&amont=asc';
+                            break;
               }
 
        }
@@ -247,6 +263,9 @@
                             break;
                      case 'desc':
                             return '&price=desc';
+                            break;
+                     default:
+                            return '&price=asc';
                             break;
               }
 
@@ -300,14 +319,14 @@
               }
        }
 
-       function newurl(
+       function newurl( //輸出新網址
               timeOrder,
               projOrder,
               detailOrder,
               cateOrder,
               amontOrder,
-              priceOrder) {
-                     
+              priceOrder,
+              buttonId) {
               location.href = '?do=summary_list' +
                      time(timeOrder) +
                      classBtn() +
@@ -317,11 +336,64 @@
                      amont(amontOrder) +
                      price(priceOrder) +
                      privateBtn() +
-                     contBtn() ;
+                     contBtn() +
+                     '&btn=' +
+                     buttonId;
        }
 
+       function handleClick(event) { //抓取網址列get數值配合監聽click按鈕以switch配合buttonId輸出n輸出newurl
+              const buttonId = event.target.id;
+              console.log(buttonId);
+              const timeOrder = url.get('time');
+              const projOrder = url.get('proj');
+              const detailOrder = url.get('detail');
+              const cateOrder = url.get('cate');
+              const amontOrder = url.get('amont');
+              const priceOrder = url.get('price');
 
-       switch (urlClass) {
+              switch (buttonId) {
+                     case 'timeAscBtn':
+                            console.log(buttonId);
+                            newurl('asc', projOrder, detailOrder, cateOrder, amontOrder, priceOrder, buttonId);
+                            break;
+                     case 'timeDescBtn':
+                            newurl('desc', projOrder, detailOrder, cateOrder, amontOrder, priceOrder, buttonId);
+                            break;
+                     case 'projAscBtn':
+                            newurl(timeOrder, 'asc', detailOrder, cateOrder, amontOrder, priceOrder, buttonId);
+                            break;
+                     case 'projDescBtn':
+                            newurl(timeOrder, 'desc', detailOrder, cateOrder, amontOrder, priceOrder, buttonId);
+                            break;
+                     case 'detailAscBtn':
+                            newurl(timeOrder, projOrder, 'asc', cateOrder, amontOrder, priceOrder, buttonId);
+                            break;
+                     case 'detailDescBtn':
+                            newurl(timeOrder, projOrder, 'desc', cateOrder, amontOrder, priceOrder, buttonId);
+                            break;
+                     case 'cateAscBtn':
+                            newurl(timeOrder, projOrder, detailOrder, 'asc', amontOrder, priceOrder, buttonId);
+                            break;
+                     case 'cateDescBtn':
+                            newurl(timeOrder, projOrder, detailOrder, 'desc', amontOrder, priceOrder, buttonId);
+                            break;
+                     case 'amontAscBtn':
+                            newurl(timeOrder, projOrder, detailOrder, cateOrder, 'asc', priceOrder, buttonId);
+                            break;
+                     case 'amontDescBtn':
+                            newurl(timeOrder, projOrder, detailOrder, cateOrder, 'desc', priceOrder, buttonId);
+                            break;
+                     case 'priceAscBtn':
+                            newurl(timeOrder, projOrder, detailOrder, cateOrder, amontOrder, 'asc', buttonId);
+                            break;
+                     case 'priceDescBtn':
+                            newurl(timeOrder, projOrder, detailOrder, cateOrder, amontOrder, 'desc', buttonId);
+                            break;
+              }
+
+       }
+
+       switch (urlClass) { //抓取新網址數值設定收支checkbox狀態
               case 'all':
                      classInBtn.checked = true;
                      classOutBtn.checked = true;
@@ -336,7 +408,7 @@
                      break;
        }
 
-       switch (urlPrivate) {
+       switch (urlPrivate) { //抓取新網址數值設定公開checkbox狀態
               case 'all':
                      privateYesBtn.checked = true;
                      privateNoBtn.checked = true;
@@ -351,7 +423,7 @@
                      break;
        }
 
-       switch (urlCont) {
+       switch (urlCont) { //抓取新網址數值設定持續checkbox狀態
               case 'all':
                      contYesBtn.checked = true;
                      contNoBtn.checked = true;
@@ -366,65 +438,25 @@
                      break;
        }
 
-       timeAscBtn.addEventListener('click', function() {
-              newurl('asc');
-       });
-       timeDescBtn.addEventListener('click', function() {
-              newurl('desc');
-       });
-
-       projAscBtn.addEventListener('click', function() {
-              newurl('asc');
-       });
-       projDescBtn.addEventListener('click', function() {
-              newurl('desc');
-       });
-
-       detailAscBtn.addEventListener('click', function() {
-              newurl('asc');
-       });
-       detailDescBtn.addEventListener('click', function() {
-              newurl('desc');
-       });
-
-       cateAscBtn.addEventListener('click', function() {
-              newurl('asc');
-       });
-       cateDescBtn.addEventListener('click', function() {
-              newurl('desc');
-       });
-
-       amontAscBtn.addEventListener('click', function() {
-              newurl('asc');
-       });
-       amontDescBtn.addEventListener('click', function() {
-              newurl('desc');
-       });
-
-       priceAscBtn.addEventListener('click', function() {
-              newurl('asc');
-       });
-       priceDescBtn.addEventListener('click', function() {
-              newurl('desc');
-       });
+       //下方開始均為監聽設定
+       timeAscBtn.addEventListener('click', handleClick);
+       timeDescBtn.addEventListener('click', handleClick);
+       projAscBtn.addEventListener('click', handleClick);
+       projDescBtn.addEventListener('click', handleClick);
+       detailAscBtn.addEventListener('click', handleClick);
+       detailDescBtn.addEventListener('click', handleClick);
+       cateAscBtn.addEventListener('click', handleClick);
+       cateDescBtn.addEventListener('click', handleClick);
+       amontAscBtn.addEventListener('click', handleClick);
+       amontDescBtn.addEventListener('click', handleClick);
+       priceAscBtn.addEventListener('click', handleClick);
+       priceDescBtn.addEventListener('click', handleClick);
 
 
-       classInBtn.addEventListener('change', function() {
-              newurl();
-       });
-       classOutBtn.addEventListener('change', function() {
-              newurl();
-       });
-       privateNoBtn.addEventListener('change', function() {
-              newurl();
-       });
-       privateYesBtn.addEventListener('change', function() {
-              newurl();
-       });
-       contNoBtn.addEventListener('change', function() {
-              newurl();
-       });
-       contYesBtn.addEventListener('change', function() {
-              newurl();
-       });
+       classInBtn.addEventListener('change', newurl);
+       classOutBtn.addEventListener('change', newurl);
+       privateNoBtn.addEventListener('change', newurl);
+       privateYesBtn.addEventListener('change', newurl);
+       contNoBtn.addEventListener('change', newurl);
+       contYesBtn.addEventListener('change', newurl);
 </script>
