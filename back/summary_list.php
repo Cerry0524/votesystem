@@ -171,14 +171,6 @@
        let urlCont = url.get('cont'); //解析新網址get cont值
 
        let clickOrder = []; //宣告按鈕陣列
-       let buttons = [ //定義按鈕陣列 
-              'timeAscBtn', 'timeDescBtn',
-              'projAscBtn', 'projDescBtn',
-              'detailAscBtn', 'detailDescBtn',
-              'cateAscBtn', 'cateDescBtn',
-              'amontAscBtn', 'amontDescBtn',
-              'priceAscBtn', 'priceDescBtn'
-       ];
 
 
        function time(timeOrder) { //時間排序
@@ -343,7 +335,17 @@
 
        function handleClick(event) { //抓取網址列get數值配合監聽click按鈕以switch配合buttonId輸出n輸出newurl
               const buttonId = event.target.id;
-              console.log(buttonId);
+
+                     let newclickOrder = clickOrder.filter(function(tmpClick) { //filter：基於指定的條件過濾陣列中的元素
+
+                            return !tmpClick.startsWith(buttonId.substring(0, 3)) && tmpClick !== buttonId;
+                            //startsWith(）特定字串開頭，用substring抓前3個字母一樣的
+                     });
+              
+              clickOrder = newclickOrder;
+              clickOrder.push(buttonId); //把buttonId放到clickOrder陣列尾巴（PUSH指令）
+              newclickOrderString = clickOrder.join('-');
+              
               const timeOrder = url.get('time');
               const projOrder = url.get('proj');
               const detailOrder = url.get('detail');
@@ -353,41 +355,52 @@
 
               switch (buttonId) {
                      case 'timeAscBtn':
-                            console.log(buttonId);
-                            newurl('asc', projOrder, detailOrder, cateOrder, amontOrder, priceOrder, buttonId);
+                            // console.log(newclickOrderString);
+                            newurl('asc', projOrder, detailOrder, cateOrder, amontOrder, priceOrder, newclickOrderString);
                             break;
                      case 'timeDescBtn':
-                            newurl('desc', projOrder, detailOrder, cateOrder, amontOrder, priceOrder, buttonId);
+                            // console.log(newclickOrderString);
+                            newurl('desc', projOrder, detailOrder, cateOrder, amontOrder, priceOrder, newclickOrderString);
                             break;
                      case 'projAscBtn':
-                            newurl(timeOrder, 'asc', detailOrder, cateOrder, amontOrder, priceOrder, buttonId);
+                            // console.log(newclickOrderString);
+                            newurl(timeOrder, 'asc', detailOrder, cateOrder, amontOrder, priceOrder, newclickOrderString);
                             break;
                      case 'projDescBtn':
-                            newurl(timeOrder, 'desc', detailOrder, cateOrder, amontOrder, priceOrder, buttonId);
+                            // console.log(newclickOrderString);
+                            newurl(timeOrder, 'desc', detailOrder, cateOrder, amontOrder, priceOrder, newclickOrderString);
                             break;
                      case 'detailAscBtn':
-                            newurl(timeOrder, projOrder, 'asc', cateOrder, amontOrder, priceOrder, buttonId);
+                            // console.log(newclickOrderString);
+                            newurl(timeOrder, projOrder, 'asc', cateOrder, amontOrder, priceOrder, newclickOrderString);
                             break;
                      case 'detailDescBtn':
-                            newurl(timeOrder, projOrder, 'desc', cateOrder, amontOrder, priceOrder, buttonId);
+                            // console.log(newclickOrderString);
+                            newurl(timeOrder, projOrder, 'desc', cateOrder, amontOrder, priceOrder, newclickOrderString);
                             break;
                      case 'cateAscBtn':
-                            newurl(timeOrder, projOrder, detailOrder, 'asc', amontOrder, priceOrder, buttonId);
+                            // console.log(newclickOrderString);
+                            newurl(timeOrder, projOrder, detailOrder, 'asc', amontOrder, priceOrder, newclickOrderString);
                             break;
                      case 'cateDescBtn':
-                            newurl(timeOrder, projOrder, detailOrder, 'desc', amontOrder, priceOrder, buttonId);
+                            // console.log(newclickOrderString);
+                            newurl(timeOrder, projOrder, detailOrder, 'desc', amontOrder, priceOrder, newclickOrderString);
                             break;
                      case 'amontAscBtn':
-                            newurl(timeOrder, projOrder, detailOrder, cateOrder, 'asc', priceOrder, buttonId);
+                            // console.log(newclickOrderString);
+                            newurl(timeOrder, projOrder, detailOrder, cateOrder, 'asc', priceOrder, newclickOrderString);
                             break;
                      case 'amontDescBtn':
-                            newurl(timeOrder, projOrder, detailOrder, cateOrder, 'desc', priceOrder, buttonId);
+                            // console.log(newclickOrderString);
+                            newurl(timeOrder, projOrder, detailOrder, cateOrder, 'desc', priceOrder, newclickOrderString);
                             break;
                      case 'priceAscBtn':
-                            newurl(timeOrder, projOrder, detailOrder, cateOrder, amontOrder, 'asc', buttonId);
+                            // console.log(newclickOrderString);
+                            newurl(timeOrder, projOrder, detailOrder, cateOrder, amontOrder, 'asc', newclickOrderString);
                             break;
                      case 'priceDescBtn':
-                            newurl(timeOrder, projOrder, detailOrder, cateOrder, amontOrder, 'desc', buttonId);
+                            // console.log(newclickOrderString);
+                            newurl(timeOrder, projOrder, detailOrder, cateOrder, amontOrder, 'desc', newclickOrderString);
                             break;
               }
 
