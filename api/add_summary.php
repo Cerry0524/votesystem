@@ -1,15 +1,15 @@
 <?php
 include_once "../db.php";
 
-echo "<pre>";
-print_r($_POST['project']);
-print_r($_POST['details']);
-print_r($_POST['amount']);
-print_r($_POST['price']);
-print_r($_POST['eff_time']);
-print_r($_POST['private']);
-print_r($_POST['continuous']);
-echo "</pre>";
+// echo "<pre>";
+// print_r($_POST['project']);
+// print_r($_POST['details']);
+// print_r($_POST['amount']);
+// print_r($_POST['price']);
+// print_r($_POST['eff_time']);
+// print_r($_POST['private']);
+// print_r($_POST['continuous']);
+// echo "</pre>";
 
 
 for ($i=0; $i <count($_POST['project']); $i++) { 
@@ -24,7 +24,7 @@ for ($i=0; $i <count($_POST['project']); $i++) {
     $sql_category_id = "select `id` from `categories` where `category`='{$_POST['category'][$i]}'";
     $category_id = $pdo->query($sql_category_id)->fetchColumn();
 
-    print_r($category_id);
+    // print_r($category_id);
 
     if($category_id>0){
 
@@ -39,6 +39,7 @@ for ($i=0; $i <count($_POST['project']); $i++) {
     $pdo->exec($sql_category_update);
 }    
 
+header("location:../?do=summary_list");
 
 
 
