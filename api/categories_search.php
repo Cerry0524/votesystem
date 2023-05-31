@@ -3,6 +3,7 @@
 $category_id = $_GET['category_id']??"";
 
 $sql_categories= "select * from `categories`";
+
 $categories=$pdo->query($sql_categories)->fetchAll(PDO::FETCH_ASSOC);
 
 $sql_categories_select = "SELECT `summary`.`effective_time` as '日期',
@@ -17,7 +18,7 @@ $sql_categories_select = "SELECT `summary`.`effective_time` as '日期',
                              `summary`.`created_time` as '登載時間'
                       FROM `summary`, `categories`
                       WHERE `summary`.`category_id` = `categories`.`id` ".
-                      (($category_id=="")?"":"AND `summary`.`category_id` = '$category_id'");
+                      (($category_id=="")?"":" AND `summary`.`category_id` = '{$category_id}'");
 
 
 $categories_select=$pdo->query($sql_categories_select)->fetchAll(PDO::FETCH_ASSOC);

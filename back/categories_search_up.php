@@ -50,7 +50,7 @@ include_once "./back/categories_search_down.php";
     }
 
     function search_result(query) {
-        fetch('./api/categories_search.php?q=' + encodeURIComponent(query))
+        fetch('./api/searchword.php?q=' + encodeURIComponent(query))
     .then(response => response.json())
         .then(data => {
             let search_input = document.querySelector('#search_input');
