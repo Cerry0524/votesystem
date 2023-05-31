@@ -46,7 +46,7 @@ include_once "./back/categories_search_down.php";
 
     function category_select(selectOpt){
         let selectValue = selectOpt.value;
-        window.location.href = "?do=categories_search_up&category_id=" + $selectValue;
+        window.location.href = "?do=categories_search_up&category_id=" + selectValue;
     }
 
     function search_result(query) {
