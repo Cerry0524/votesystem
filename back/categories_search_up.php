@@ -9,13 +9,13 @@ include_once "./api/categories_search.php";
         <div class="top-left">
             <input type="text" id="search" autocomplete="off">
             <div id="search_input"></div>
-            <select name="category_id" onclick="location.href:'?category_id=''">
+
+            <select onchange="category_select(this)">
                 <?php
                 foreach ($categories as $idx => $category) {
                 ?>
-
-                    <option name="category_idvalue=" <?= $category['id']; ?>">
-                        <?= $category['category']; ?>
+                    <option value="<?= $category['id']; ?>">   
+                    <?= $category['category']; ?>
                     </option>
 
                 <?php
@@ -37,14 +37,21 @@ include_once "./api/categories_search.php";
 include_once "./back/categories_search_down.php";
 ?>
 <script>
+    
+    div.textContent = item.category;
     document.querySelector('#search').addEventListener('input', function(event) {
         let value = event.target.value;
         search_result(value);
     })
 
+    function category_select(selectOpt){
+        let selectValue = selectOpt.value;
+        window.location.href = "?do=categories_search_up&category_id=" + $selectValue;
+    }
+
     function search_result(query) {
-    fetch('/search_result?q=' + encodeURIComponent(query))
-        .then(response => response.json())
+        fetch('./api/categories_search.php?q=' + encodeURIComponent(query))
+    .then(response => response.json())
         .then(data => {
             let search_input = document.querySelector('#search_input');
             search_input.innerHTML = '';
@@ -55,5 +62,5 @@ include_once "./back/categories_search_down.php";
             }
             search_input.style.display = data.length ? 'block' : 'none';
         });
-}
+    }
 </script>

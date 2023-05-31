@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 $query = isset($_GET['q']) ? $_GET['q'] : '';
 
 // Run a query against the database
-$result = $conn->query("SELECT * FROM your_table WHERE your_column LIKE '%$query%'");
+$result = $conn->query("SELECT `category` FROM `categories` WHERE `category` LIKE '%$query%'");
 
 // Check the result
 if ($result === FALSE) {
