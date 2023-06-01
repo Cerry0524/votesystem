@@ -6,6 +6,10 @@ $sql_categories= "select * from `categories`";
 
 $categories=$pdo->query($sql_categories)->fetchAll(PDO::FETCH_ASSOC);
 
+$sql_categories_detp="select `description` from `categories` where `id`='{$category_id}'";
+
+$category_detp=$pdo->query($sql_categories_detp)->fetch(PDO::FETCH_ASSOC);
+
 $sql_categories_select = "SELECT `summary`.`effective_time` as '日期',
                              `summary`.`class` as '屬性',
                              `summary`.`project` as '項目',

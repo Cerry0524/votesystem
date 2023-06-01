@@ -72,7 +72,6 @@
                 include "./front/summary_all.php";
                 include "./front/vote_all.php";
             } else {
-                include "./front/summary_all.php";
                 include "./front/summary_private.php";
             }
         }

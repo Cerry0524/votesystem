@@ -51,7 +51,7 @@
     const canvaAll = document.getElementById('canvaAll');
     console.log(canvaAll);
 
-    const data = {
+    const datapublic = {
         labels: ['收入', '支出'],
         datasets: [{
             data: [<?=$sumIn;?>,<?=$sumOut;?>],
@@ -74,6 +74,6 @@
 
     const doughnutChart = new Chart(canvaAll, {
         type: 'doughnut',
-        data: data
+        data: datapublic
     });
 </script>

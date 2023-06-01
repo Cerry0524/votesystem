@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="./css/style_categoriessearch.css">
-<?php
-include_once "./api/categories_search.php";
+<?php include_once "./api/categories_search.php";
+
 ?>
 
 
@@ -8,6 +8,7 @@ include_once "./api/categories_search.php";
     <div class="top">
         <div class="top-left">
             <select onchange="category_select(this)">
+            <option value="">請選擇</option>
                 <?php
                 foreach ($categories as $idx => $category) {
                 ?>
@@ -21,7 +22,7 @@ include_once "./api/categories_search.php";
 
             </select>
         </div>
-        <div class="top-right">top-right</div>
+        <div class="top-right"><?= $category_detp['description']; ?></div>
     </div>
     <div class="canva">
         <div class="canva-left">canva-left</div>

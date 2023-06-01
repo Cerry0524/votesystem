@@ -1,42 +1,125 @@
 <!-- /前段index已載入db.php -->
+<link rel="stylesheet" href="../css/style_summary_private.css">
+<?php
+include_once "./api/summary_private.php";
+include_once "./api/summary_all.php";
+?>
+
+
 <div class="summary-private">
-    <div class="summary-private-top">上方空白</div>
+    <div class="summary-private-top"></div>
     <div class="summary-private-content">
-        <div class="summary-private-content-left">本月收入</div>
-        <div class="summary-private-content-center"><canvas id="canvaPriv">JJJ</canvas></div>
-        <div class="summary-private-content-right">本月支出</div>
+        <div class="summary-private-content-left">
+            <div class="summary-private-content-left-half">
+                <div>
+                    公開總收入<?= $sumIn; ?>元
+                </div>
+                <?php
+                foreach ($summary_public_in as $summary_publicIn) {
+                ?>
+                    <div>
+                        <div><?= $summary_publicIn['類別']; ?></div>
+                        <div><?= $summary_publicIn['小計']; ?></div>
+                    </div>
+                <?php
+                }
+                ?>
+            </div>
+            <div class="summary-private-content-left-half">
+                <div>
+                    私人總收入<?= $sumInprivate; ?>元
+                </div>
+                <?php
+                foreach ($summary_private_in as $summary_privateIn) {
+                ?>
+                    <div>
+                        <div><?= $summary_privateIn['類別']; ?></div>
+                        <div><?= $summary_privateIn['小計']; ?></div>
+                    </div>
+                <?php
+                }
+                ?>
+            </div>
+        </div>
+        <div class="summary-private-content-center">
+            <canvas id="canvaAllprivate"></canvas>
+            <div class="absolute-center text-center">
+                <p>外圈：私人收支</p>
+                <p>內圈：公開收支</p>
+            </div>
+        </div>
+        <div class="summary-private-content-right">
+            <div class="summary-private-content-right-half">
+                <div>
+                    公開總支出<?= $sumOut; ?>元
+                </div>
+                <?php
+                foreach ($summary_public_out as $summary_publicOut) {
+                ?>
+                    <div>
+                        <div><?= $summary_publicOut['類別']; ?></div>
+                        <div><?= $summary_publicOut['小計']; ?></div>
+                    </div>
+                <?php
+                }
+                ?>
+            </div>
+            <div class="summary-private-content-right-half">
+                <div>
+                    私人總支出<?= $sumOutprivate; ?>元
+                </div>
+                <?php
+                foreach ($summary_private_out as $summary_privateOut) {
+                ?>
+                    <div>
+                        <div><?= $summary_privateOut['類別']; ?></div>
+                        <div><?= $summary_privateOut['小計']; ?></div>
+                    </div>
+                <?php
+                }
+                ?>
+            </div>
+        </div>
     </div>
-    <div class="summary-private-footer">下方空白</div>
+    <div class="summary-private-footer"></div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1"></script>
 
 <script>
-    var canvaPriv = document.getElementById('canvaPriv');
-    console.log(canvaPriv);
+    // 获取canvaAllprivate元素
+    const canvaAllprivate = document.getElementById('canvaAllprivate');
 
-    var data = {
+    const dataprivate = {
         labels: ['收入', '支出'],
         datasets: [{
-            data: [500, 300], // 數據data
-            backgroundColor: ['#36A2EB', '#FF6384'], // 自訂顏色
-            borderWidth: 0
+            label: '公開',
+            data: [<?= $sumIn; ?>, <?= $sumOut; ?>],
+            backgroundColor: ['#7EC1EE', '#FFB0C1'],
+            hoverOffset: 4
+        }, {
+            label: '私人',
+            data: [<?= $sumInprivate; ?>, <?= $sumOutprivate; ?>],
+            backgroundColor: ['#36A2EB', '#FF6384'],
+            hoverOffset: 4
         }]
     };
 
     // 创建甜甜圈图的配置选项
-    var options = {
+    const optionsprivate = {
         responsive: true,
         cutout: '60%', // 內環半徑
         plugins: {
             legend: {
-                display: false //不顯示圖例
+                display: true, // 圖例顯示
             }
         }
     };
 
-    // 创建甜甜圈图实例
-    var doughnutChart = new Chart(canvaPriv, {
+
+    const doughnutChartoptionsprivate = new Chart(canvaAllprivate, {
         type: 'doughnut',
-        data: data
+        data: dataprivate,
+        options: optionsprivate
     });
 </script>
