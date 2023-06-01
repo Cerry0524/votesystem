@@ -4,4 +4,7 @@ $pdo=new PDO($dsn,'root','');
 date_default_timezone_set("Asia/Taipei");
 session_start();
 
+$year=date('Y');
+$month=date('m');
+
 ?>

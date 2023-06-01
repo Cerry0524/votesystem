@@ -1,10 +1,6 @@
 <link rel="stylesheet" href="../css/style_category.css">
+<?php include_once "./api/category_list.php" ?>
 
-<?php
-$sql_categories = "SELECT `category`,`description` from `categories`";
-
-$categories = $pdo->query($sql_categories)->fetchAll(PDO::FETCH_ASSOC);
-?>
 <table class="category-table">
     <tr>
         <th>項次</th>

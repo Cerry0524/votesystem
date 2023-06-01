@@ -1,8 +1,9 @@
-*{
+* {
     box-sizing: border-box;
     text-align: center;
 }
-header{
+
+header {
     display: flex;
     justify-content: space-between;
     /* flex-wrap: wrap; */
@@ -15,126 +16,108 @@ header{
     position: relative;
 }
 
-header>div{
+header>div {
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 10px;
     padding-right: 10px;
 }
-header>.top-title{
+
+header>.top-title {
     color: white;
     padding-top: 10px;
     padding-bottom: 5px;
     flex-basis: 40%;
-    min-width:130px;
+    min-width: 130px;
     text-align: left;
     /* border: 1px solid black; */
 }
-header>.top-center{
+
+header>.top-center {
     flex-basis: 20%;
     padding-top: 10px;
     /* border: 1px solid black; */
 }
 
-header>.top-menu{
-   flex-basis:40%;
-   text-align: right;
-   /* border: 1px solid black; */
+header>.top-menu {
+    flex-basis: 40%;
+    text-align: right;
+    /* border: 1px solid black; */
 }
-header>div>a{
-    text-decoration-line:none ;
+
+header>div>a {
+    text-decoration-line: none;
     color: white;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 10px;
     padding-right: 10px;
 }
+
 #menu,
-#system{
+#system {
     background-color: rgb(116, 156, 248);
     color: white;
     border: 0;
     height: 30px;
     font-size: 20px;
     border: 1px solid rgb(9, 9, 183);
-    margin-right: -5px ;
+    margin-right: -5px;
     padding-left: 15px;
     padding-right: 15px;
 }
 
-#menu-opt{
+#menu-opt {
     display: none;
     position: absolute;
     z-index: 2;
     max-width: 120px;
     max-width: 180px;
     height: 250px;
-    top:40px;
-    right:10px;
-    background-color: rgb(252, 153, 170,0.5);
+    top: 40px;
+    right: 10px;
+    background-color: rgb(252, 153, 170, 0.5);
     border: 6px double plum;
-    flex-direction:column ;
+    flex-direction: column;
 }
-.menu-opt>div{
-    
-    flex-basis: calc( 100% / 5 );
+
+.menu-opt>div {
+
+    flex-basis: calc(100% / 5);
     width: 100%;
-    background-color: rgb(255, 157, 172,0.5);
+    background-color: rgb(255, 157, 172, 0.5);
     padding: 12px;
     border: 1px solid rgba(255, 255, 255, 0.474);
     color: white;
     font-weight: bolder;
 }
-#system-opt{
+
+#system-opt {
     display: none;
     position: absolute;
     z-index: 2;
     max-width: 120px;
     max-width: 180px;
     height: 100px;
-    top:40px;
-    right:10px;
-    background-color: rgb(252, 153, 170,0.5);
+    top: 40px;
+    right: 10px;
+    background-color: rgb(252, 153, 170, 0.5);
     border: 6px double plum;
-    flex-direction:column ;
+    flex-direction: column;
 }
-.system-opt>div{
-    
-    flex-basis: calc( 100% / 2 );
+
+.system-opt>div {
+
+    flex-basis: calc(100% / 2);
     width: 100%;
-    background-color: rgb(255, 157, 172,0.5);
+    background-color: rgb(255, 157, 172, 0.5);
     padding: 5px;
     border: 1px solid rgba(255, 255, 255, 0.474);
     color: white;
     font-weight: bolder;
 }
-.summary-all{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    flex-basis: 50vh;
-    width: 100%;
-    border-left: 2px solid darkblue;
-    border-right: 2px solid darkblue;
-    border-bottom: 2px solid darkblue;
-}
-.summary-all-top{
-    flex-basis: 5vh;
-    background-color: rgb(251, 210, 149);
-}
-.summary-all-content{
-    flex-basis: 35vh;
-    background-color: rgb(251, 210, 149);
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-.summary-all-footer{
-    flex-basis: 5vh;
-    background-color: rgb(251, 210, 149);
-}
-.vote-list{
+.vote-list {
     display: flex;
     flex-basis: 100%;
     height: 45vh;
@@ -144,11 +127,13 @@ header>div>a{
     background-color: rgb(205, 153, 253);
     padding: 20px;
 }
-.vote-list-form{
+
+.vote-list-form {
     border: 1px solid black;
     flex-basis: 100%;
 }
-.summary-private{
+
+.summary-private {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -158,11 +143,13 @@ header>div>a{
     border-right: 2px solid darkblue;
     border-bottom: 2px solid darkblue;
 }
-.summary-private-top{
+
+.summary-private-top {
     flex-basis: 5vh;
     background-color: rgb(255, 184, 77);
 }
-.summary-private-content{
+
+.summary-private-content {
     flex-basis: 35vh;
     background-color: rgb(255, 184, 77);
 
@@ -170,36 +157,40 @@ header>div>a{
     flex-direction: row;
     justify-content: space-around;
 }
-.summary-private-footer{
+
+.summary-private-footer {
     flex-basis: 5vh;
     background-color: rgb(255, 184, 77);
 }
 
 
-#incomeBtn{
+#incomeBtn {
     width: 120px;
     height: 40px;
     font-size: 20px;
     border: 2px solid darkblue;
     border-radius: 10px 0px 0 10px;
-    background-color: rgb(209, 165,233 );
+    background-color: rgb(209, 165, 233);
     padding-top: 5px;
     padding-bottom: 5px;
 }
-#expendBtn{
+
+#expendBtn {
     width: 120px;
     height: 40px;
     font-size: 20px;
     border: 2px solid darkblue;
     border-radius: 0 10px 10px 0;
-    background-color: rgb(241, 173,241 );
+    background-color: rgb(241, 173, 241);
     padding-top: 5px;
     padding-bottom: 5px;
 }
-.classBtn{
+
+.classBtn {
     width: 100%;
     display: flex;
 }
-.classBtn>div{
+
+.classBtn>div {
     width: calc(100% / 3);
 }
