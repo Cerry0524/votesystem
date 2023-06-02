@@ -12,34 +12,41 @@ include_once "../db.php";
 // echo "</pre>";
 
 
-for ($i=0; $i <count($_POST['project']); $i++) { 
-    
-    $j = $i + 1; 
+for ($i = 0; $i < count($_POST['project']); $i++) {
 
-    $sql = "INSERT INTO `summary`( `project`, `details`, `amount`,`price`,`effective_time`,`private`, `continuous`)
-                          VALUES ('{$_POST['project'][$i]}', '{$_POST['details'][$i]}', '{$_POST['amount'][$i]}','{$_POST['price'][$i]}', '{$_POST['eff_time'][$i]}', '{$_POST['private'][$i][0]}', '{$_POST['continuous'][$i][0]}')";
-   
-    $pdo->exec($sql);
-    
-    $sql_category_id = "select `id` from `categories` where `category`='{$_POST['category'][$i]}'";
-    $category_id = $pdo->query($sql_category_id)->fetchColumn();
+    $j = $i + 1;
 
-    // print_r($category_id);
+    insert('summary', [
+        'project' => $_POST['project'][$i],
+        'details' => $_POST['details'][$i],
+        'amount' => $_POST['amount'][$i],
+        'price' => $_POST['price'][$i],
+        'effective_time' => $_POST['eff_time'][$i],
+        'private' => $_POST['private'][$i][0],
+        'continuous' => $_POST['continuous'][$i][0]
+    ]);
 
-    if($category_id>0){
 
-    }else{
-        $sql="INSERT INTO `categories`(`category`) VALUES ('{$_POST['category'][$i]}')";
-        $pdo->exec($sql);
-        $sql_category_id = "select `id` from `categories` where `category`='{$_POST['category'][$i]}'";
-        $category_id = $pdo->query($sql_category_id)->fetchColumn();
+    $category_id = find('categories', ['category' => $_POST['category'][$i]]);
+
+
+    if ($category_id > 0) {
+    } else {
+        insert('categories', ['category' => $_POST['category'][$i]]);
+        // $sql_category_id = "select `id` from `categories` where `category`='{$_POST['category'][$i]}'";
+        // $category_id = $pdo->query($sql_category_id)->fetchColumn();
+        $category_id = find('categories', ['category' => $_POST['category'][$i]]);
     }
-   
-    $sql_category_update="UPDATE `summary` SET `category_id`=$category_id WHERE `project`='{$_POST['project'][$i]}'";
-    $pdo->exec($sql_category_update);
-}    
 
-header("location:../?do=summary_list");
+    // $sql_category_update = "UPDATE `summary` SET `category_id`=$category_id WHERE `project`='{$_POST['project'][$i]}'";
+    // $pdo->exec($sql_category_update);
+    dd($category_id);
+    update('summary', [
+        'category_id' => $category_id['id']
+    ], [
+        'project' => $_POST['project'][$i]
+    ]);
+}
 
-
-
+// header("location:../?do=summary_list");
+to ("../?do=summary_list");
