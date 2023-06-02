@@ -8,7 +8,7 @@
     <div class="top">
         <div class="top-left">
             <select onchange="category_select(this)">
-                <option value="">請選擇</option>
+                <option value="1">請選擇</option>
                 <?php
                 foreach ($categories as $idx => $category) {
                 ?>
