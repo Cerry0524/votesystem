@@ -19,6 +19,7 @@ justify-content: center;
     border-bottom: 10px solid rgb(91, 155, 213);
     border-left: 10px solid rgb(91, 155, 213) ;
     border-right: 10px solid rgb(91, 155, 213) ;
+
 }
 
 .content-top {
@@ -75,8 +76,9 @@ justify-content: center;
 }
 
 .add-table-th7 {
-    min-width: 180px;
-    width: 180px;
+    min-width: 160px;
+    width: 160px;
+    line-height: 1.5;
 }
 
 .add-table-th8 {
@@ -89,6 +91,8 @@ input {
     background-color: rgba(240, 248, 255, 0);
     border: 0;
     margin: auto auto;
+    max-lines: 2;
+    line-height: 3;
 }
 
 .addBtn {

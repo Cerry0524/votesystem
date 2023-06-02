@@ -22,9 +22,9 @@
             <div class="add-table-th1"><input style="width:120px" type="date" name="eff_time[]" id="eff_time"></div>
             <div class="add-table-th2"><input style="width:120px" type="text" name="project[]" id="project"></div>
             <div class="add-table-th3"><input style="width:120px" type="text" name="details[]" id="details"></div>
-            <div class="add-table-th4"><input style="width:80px" type="text" name="category[]" id="category"></div>
+            <div class="add-table-th4"><input style="width:180px" type="text" name="category[]" id="category"></div>
             <div class="add-table-th5"><input style="width:50px" type="number" name="amount[]" id="amount" min="0"></div>
-            <div class="add-table-th6"><input style="width:50px" type="number" name="price[]" id="price" min="0"></div>
+            <div class="add-table-th6"><input style="width:150px" type="number" name="price[]" id="price" min="0"></div>
             <div class="add-table-th7">
                 <input type="radio" name="private[${optionIndex}][]" value="0" checked>公開
                 <input type="radio" name="private[${optionIndex}][]" value="1">不公開<br>
@@ -62,9 +62,9 @@
             <div class="add-table-th1"><input style="width:120px" type="date" name="eff_time[]" id="eff_time"></div>
             <div class="add-table-th2"><input style="width:120px" type="text" name="project[]" id="project"></div>
             <div class="add-table-th3"><input style="width:120px" type="text" name="details[]" id="details"></div>
-            <div class="add-table-th4"><input style="width:80px" type="text" name="category[]" id="category"></div>
+            <div class="add-table-th4"><input style="width:180px" type="text" name="category[]" id="category"></div>
             <div class="add-table-th5"><input style="width:50px" type="number" name="amount[]" id="amount" min="0"></div>
-            <div class="add-table-th6"><input style="width:50px" type="number" name="price[]" id="price" min="0"></div>
+            <div class="add-table-th6"><input style="width:150px" type="number" name="price[]" id="price" min="0"></div>
             <div class="add-table-th7">
                 <input type="radio" name="private[${optionIndex}][]" value="0" checked>公開
                 <input type="radio" name="private[${optionIndex}][]" value="1">不公開<br>
