@@ -7,6 +7,7 @@ $sql_summary_public_all = "SELECT `categories`.`category` as '類別',
                          `summary`.`private`= 0 AND
                          `summary`.`effective_time` like '%$month%'
                 GROUP by `summary`.`category_id`";
+                
 
 
 $sql_summary_public_in = "SELECT `categories`.`category` as '類別',

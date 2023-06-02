@@ -2,5 +2,5 @@
 
 unset($_SESSION['login']);
 
-header("location:../index.php");
+to("../index.php");
 ?>

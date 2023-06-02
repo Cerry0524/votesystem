@@ -2,13 +2,13 @@
 
 $category_id = $_GET['category_id']??"";
 
-$sql_categories= "select * from `categories`";
+// $sql_categories= "select * from `categories`";
+// $categories=$pdo->query($sql_categories)->fetchAll(PDO::FETCH_ASSOC);
+$categories=all('categories');
 
-$categories=$pdo->query($sql_categories)->fetchAll(PDO::FETCH_ASSOC);
-
-$sql_categories_detp="select `description` from `categories` where `id`='{$category_id}'";
-
-$category_detp=$pdo->query($sql_categories_detp)->fetch(PDO::FETCH_ASSOC);
+// $sql_categories_detp="select `description` from `categories` where `id`='{$category_id}'";
+// $category_detp=$pdo->query($sql_categories_detp)->fetch(PDO::FETCH_ASSOC);
+$category_detp=all('categories',$category_id);
 
 $sql_categories_select = "SELECT `summary`.`effective_time` as '日期',
                              `summary`.`class` as '屬性',
@@ -25,4 +25,4 @@ $sql_categories_select = "SELECT `summary`.`effective_time` as '日期',
                       (($category_id=="")?"":" AND `summary`.`category_id` = '{$category_id}'");
 
 
-$categories_select=$pdo->query($sql_categories_select)->fetchAll(PDO::FETCH_ASSOC);
+$categories_select=q($sql_categories_select);
