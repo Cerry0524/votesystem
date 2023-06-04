@@ -10,7 +10,19 @@ include_once "../db.php";
 // print_r($_POST['private']);
 // print_r($_POST['continuous']);
 // echo "</pre>";
+if(isset($_FILES["image"]["name"])){
+    $img_name = $_FILES["image"]["name"];
 
+    move_uploaded_file($_FILES['img']['tmp_name'],"../img/".$name);
+
+    $sql="insert into `images` (`img`,`desc`,`type`,`size`) 
+                        values('$img_name','{$_POST['desc']}','{$_FILES['img']['type']}','{$_FILES['img']['size']}')";
+
+    $pdo->exec($sql);
+    
+    echo "圖片上傳成功";
+
+}
 
 for ($i = 0; $i < count($_POST['project']); $i++) {
 
@@ -49,4 +61,4 @@ for ($i = 0; $i < count($_POST['project']); $i++) {
 }
 
 // header("location:../?do=summary_list");
-to ("../?do=summary_list");
+// to ("../?do=summary_list");
