@@ -1,47 +1,70 @@
 <link rel="stylesheet" href="../css/style_addsummary.css">
 <div class="formcss">
-    <form action="./api/add_summary.php" method="post">
+    <form action="./api/add_summary.php" method="post" enctype="multipart/form-data">
         <div class="content-top">
-        <div name="incomeBtn" id="incomeBtn" value="0">收入</div>
-        <div name="expendBtn" id="expendBtn" value="1">支出</div>
-    </div>
-    <div class="add-table">
-        <div class="add-table-div1">
-            <div class="add-table-th1"><label for="eff_time">發生日期</label></div>
-            <div class="add-table-th2"><label for="project">項目</label></div>
-            <div class="add-table-th3"><label for="details">細節</label></div>
-            <div class="add-table-th4"><label for="category">類別</label></div>
-            <div class="add-table-th5"><label for="amount">數量</label></div>
-            <div class="add-table-th6"><label for="price">金額</label></div>
-            <div class="add-table-th7"><label for="pravite">備註</label></div>
-            <div class="add-table-th8">增減項目</div>
+            <div name="incomeBtn" id="incomeBtn" value="0">收入</div>
+            <div name="expendBtn" id="expendBtn" value="1">支出</div>
         </div>
-        <div class=tdInput style='background-color: rgb(210, 222,239);
-                                 height: 40px;
-                                 border-bottom: 1px solid dodgerblue; '>
-            <div class="add-table-th1"><input style="width:120px" type="date" name="eff_time[]" id="eff_time"></div>
-            <div class="add-table-th2"><input style="width:120px" type="text" name="project[]" id="project"></div>
-            <div class="add-table-th3"><input style="width:120px" type="text" name="details[]" id="details"></div>
-            <div class="add-table-th4"><input style="width:180px" type="text" name="category[]" id="category"></div>
-            <div class="add-table-th5"><input style="width:50px" type="number" name="amount[]" id="amount" min="0"></div>
-            <div class="add-table-th6"><input style="width:150px" type="number" name="price[]" id="price" min="0"></div>
-            <div class="add-table-th7">
-                <input type="radio" name="private[${optionIndex}][]" value="0" checked>公開
-                <input type="radio" name="private[${optionIndex}][]" value="1">不公開<br>
-                <input type="radio" name="continuous[${optionIndex}][]" value="0" checked>無持續
-                <input type="radio" name="continuous[${optionIndex}][]" value="1">有持續
+        <div class="add-table">
+            <div class="add-table-div1 ">
+                <div class="red-point"></div>
+                <div class="add-table-div1-left">
+                    <div class="add-table-img">
+                        <img src="#" id="preview${optionIndex}" alt="Preview Image">
+                        <input type="file" name="imgInput[]" class="imgInput" onchange="previewImage(this, 'preview${optionIndex}')">
+                    </div>
+                    <div class="add-table-desc">
+                        描述<input type="text" name="desc[]" class="desc">
+                    </div>
+                </div>
+                <div class="add-table-div1-right">
+                    <div class="add-table-tr1">
+                        <label for="eff_time" class="add-table-left">日期</label>
+                        <input type="date" name="eff_time[]" id="eff_time" required>
+                    </div>
+                    <div class="add-table-tr2">
+                        <label for="project" class="add-table-left">項目</label>
+                        <input type="text" name="project[]" id="project" required>
+                    </div>
+                    <div class="add-table-tr3">
+                        <label for="details" class="add-table-left">細節</label>
+                        <input type="text" name="details[]" id="details">
+                    </div>
+                    <div class="add-table-tr4">
+                        <label for="category" class="add-table-left">類別</label>
+                        <input type="text" name="category[]" id="category" required>
+                    </div>
+                    <div class="add-table-tr5">
+                        <label for="amount" class="add-table-left">數量</label>
+                        <input type="number" name="amount[]" id="amount" min="0">
+                    </div>
+                    <div class="add-table-tr6">
+                        <label for="price" class="add-table-left">金額</label>
+                        <input type="number" name="price[]" id="price" min="0">
+                    </div>
+                    <div class="add-table-tr7">
+                        <div class="add-table-left">備註</div>
+                        <div class="add-table-right">
+                            <input type="radio" name="private[${optionIndex}][]" value="0" checked>公開
+                            &nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="private[${optionIndex}][]" value="1">不公開<br>
+                            <input type="radio" name="continuous[${optionIndex}][]" value="0" checked>無持續
+                            <input type="radio" name="continuous[${optionIndex}][]" value="1">有持續
+                        </div>
+                    </div>
+                    <div class="add-table-tr8 ">
+                        <span onclick="addOption(this)" style="font-size: 30px;background-color:white;border-radius: 50px;box-shadow: 2px 2px 4px gray;border:1px solid #ccc;margin-left:-50px">＋</span>
+                        &nbsp;&nbsp;&nbsp;
+                        <br>
+                        <span onclick="removeOption(this) " style="font-size: 30px;background-color:white;border-radius: 50px;box-shadow: 2px 2px 4px gray;border:1px solid #ccc">－</span>
+                    </div>
+                </div>
             </div>
-            <div  class="add-table-th8">
-                <span onclick="addOption(this)" style="font-size: 26px;">＋</span><br>
-                <span onclick="removeOption(this) " style="font-size: 26px;">－</span>
-            </div>
         </div>
-        <div class=lastInput>
-            <div style="width: 5%;" colspan="10"></div>
-        </div>
-    </div>
-    <button type="submit" class="addBtn">確認</button>
-</form>
+        <br>
+        <button type="submit" class="addBtn">確認</button>
+    </form>
+
 </div>
 
 
@@ -56,28 +79,62 @@
         $(".lastInput").remove();
 
         let opt = `
-        <div class=tdInput style='background-color: rgb(210, 222,239);
-                                 height: 40px;
-                                 border-bottom: 1px solid dodgerblue; '>
-            <div class="add-table-th1"><input style="width:120px" type="date" name="eff_time[]" id="eff_time"></div>
-            <div class="add-table-th2"><input style="width:120px" type="text" name="project[]" id="project"></div>
-            <div class="add-table-th3"><input style="width:120px" type="text" name="details[]" id="details"></div>
-            <div class="add-table-th4"><input style="width:180px" type="text" name="category[]" id="category"></div>
-            <div class="add-table-th5"><input style="width:50px" type="number" name="amount[]" id="amount" min="0"></div>
-            <div class="add-table-th6"><input style="width:150px" type="number" name="price[]" id="price" min="0"></div>
-            <div class="add-table-th7">
-                <input type="radio" name="private[${optionIndex}][]" value="0" checked>公開
-                <input type="radio" name="private[${optionIndex}][]" value="1">不公開<br>
-                <input type="radio" name="continuous[${optionIndex}][]" value="0" checked>無持續
-                <input type="radio" name="continuous[${optionIndex}][]" value="1">有持續
-            </div>
-            <div  class="add-table-th8">
-                <span onclick="addOption(this)" style="font-size: 26px;">＋</span><br>
-                <span onclick="removeOption(this) " style="font-size: 26px;">－</span>
-            </div>
-        </div>`
+        <div class="add-table-div1 ">
+                <div class="red-point"></div>
+                <div class="add-table-div1-left">
+                    <div class="add-table-img">
+                        <img src="#" id="preview${optionIndex}" alt="Preview Image">
+                        <input type="file" name="imgInput[]" class="imgInput" onchange="previewImage(this, 'preview${optionIndex}')">
+                    </div>
+                    <div class="add-table-desc">
+                        描述<input type="text" name="desc[]" class="desc">
+                    </div>
+                </div>
+                <div class="add-table-div1-right">
+                    <div class="add-table-tr1">
+                        <label for="eff_time" class="add-table-left">日期</label>
+                        <input type="date" name="eff_time[]" id="eff_time" required>
+                    </div>
+                    <div class="add-table-tr2">
+                        <label for="project" class="add-table-left">項目</label>
+                        <input type="text" name="project[]" id="project" required>
+                    </div>
+                    <div class="add-table-tr3">
+                        <label for="details" class="add-table-left">細節</label>
+                        <input type="text" name="details[]" id="details">
+                    </div>
+                    <div class="add-table-tr4">
+                        <label for="category" class="add-table-left">類別</label>
+                        <input type="text" name="category[]" id="category" required>
+                    </div>
+                    <div class="add-table-tr5">
+                        <label for="amount" class="add-table-left">數量</label>
+                        <input type="number" name="amount[]" id="amount" min="0">
+                    </div>
+                    <div class="add-table-tr6">
+                        <label for="price" class="add-table-left">金額</label>
+                        <input type="number" name="price[]" id="price" min="0">
+                    </div>
+                    <div class="add-table-tr7">
+                        <div class="add-table-left">備註</div>
+                        <div class="add-table-right">
+                            <input type="radio" name="private[${optionIndex}][]" value="0" checked>公開
+                            &nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="private[${optionIndex}][]" value="1">不公開<br>
+                            <input type="radio" name="continuous[${optionIndex}][]" value="0" checked>無持續
+                            <input type="radio" name="continuous[${optionIndex}][]" value="1">有持續
+                        </div>
+                    </div>
+                    <div class="add-table-tr8 ">
+                        <span onclick="addOption(this)" style="font-size: 30px;background-color:white;border-radius: 50px;box-shadow: 2px 2px 4px gray;border:1px solid #ccc;margin-left:-50px">＋</span>
+                        &nbsp;&nbsp;&nbsp;
+                        <br>
+                        <span onclick="removeOption(this) " style="font-size: 30px;background-color:white;border-radius: 50px;box-shadow: 2px 2px 4px gray;border:1px solid #ccc">－</span>
+                    </div>
+                </div>
+            </div>`
 
-        $(".tdInput").parent().append(opt);
+        $(".add-table-div1").parent().append(opt);
 
         optionIndex += 1; // 每次新增時增加索引值
         count += 1; //計算次數
@@ -85,10 +142,27 @@
     }
 
     function removeOption(el) {
-        let dom = $(el).parent().parent()
+        let dom = $(el).parent().parent().parent()
         if (count > 1) {
             $(dom).remove();
             count -= 1;
         }
     }
+
+    imgInput.addEventListener('change', function(event) {
+        previewImage(event);
+    });
+
+    function previewImage(input, previewId) {
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById(previewId).src = e.target.result;
+        };
+        if (input.files && input.files[0]) {
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
+</body>
+
+</html>

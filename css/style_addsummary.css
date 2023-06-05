@@ -1,104 +1,151 @@
 body {
     background-color: rgb(255, 230, 154);
 }
-.formcss{
-width: 100%;
-height: 100%;
-display: flex;
-justify-content: center;
 
-}
-
-
-.add-table {
-    background-color: rgb(210, 222, 239);
+.formcss {
+    width: 100vw;
+    height: 100%;
     display: flex;
-    flex-direction: column;
-    font-size: 20px;
-    flex-basis: 80%;
-    border-bottom: 10px solid rgb(91, 155, 213);
-    border-left: 10px solid rgb(91, 155, 213) ;
-    border-right: 10px solid rgb(91, 155, 213) ;
-
+    justify-content: center;
 }
 
 .content-top {
     flex-basis: 80%;
-    display: flex;
+
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 50px;
     padding-right: 50px;
+
+    display: flex;
+    flex-wrap: wrap;
 }
+
+.add-table {
+    background-image: url(../background/add.jpg);
+    width: 80vw;
+    font-size: 20px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    padding: 20px;
+    backdrop-filter: blur(5px);
+    display: flex;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgb(33, 74, 111);
+}
+
 
 .add-table-div1 {
-    flex-basis:100%;
+    flex-basis: 45%;
+    height: 300px;
     display: flex;
-    background-color: rgb(91, 155, 213);
-    color: white;
+    background-color: aliceblue;
+    /* flex-wrap: wrap; */
+    margin: 20px;
+    box-shadow: 2px 2px 15px rgb(55, 52, 7),-2px -2px 2px rgb(143, 104, 5) inset;
+    border-radius: 35px 35px 0 0;
+    position: relative;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.add-table-div1-left {
+    flex-basis: 42%;
+    /* border: 1px solid black; */
+
+    display: flex;
+    flex-direction: column;
+}
+
+.add-table-div1-right {
+    flex-basis: 45%;
     height: 30px;
     padding-top: 5px;
+    ;
+
+    display: flex;
+    flex-direction: column;
 }
 
-.tdInput {
-    flex-basis: 100%;
+.add-table-div1-right>div>input:not(input[type='radio']) {
+    min-width: 80px;
+    max-width: 185px;
+    line-height: 1.5;
+    background-color: rgb(0, 0, 0,0);
+    border:0;
+    border-bottom:1px solid rgb(76, 0, 255) ;
+}
+
+.add-table-img {
+    /* border: 1px solid black; */
+    width: 100%;
+    flex-basis: 80%;
+    /* padding-top:80px; */
+    margin: 10px 10px 0;
+    padding-left: 3px;
+    padding-right: 3px;
+    
+    display: flex;
+    flex-wrap: wrap;
+}
+.add-table-desc{
+    width: 100%;
+    flex-basis: 15%;
+    margin-top: 10px;
+}
+img{
+    height: 85%;
+    max-height: 170px;
+    width: 240px;
+    box-shadow: 0 0 8px rgb(29, 4, 93) inset;
+    display: block;
+    background-color: rgb(229, 236, 242);
+    margin-top: 5px;
+    margin-right: 5px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+#imgInput{
+    width: 100%;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.add-table-desc input{
+    width: 70%;
+    background-color: rgb(0, 0, 0,0);
+    border: 0;
+    border-bottom:1px solid rgb(76, 0, 255) ;
+}
+
+.add-table-tr1,
+.add-table-tr2,
+.add-table-tr3,
+.add-table-tr4,
+.add-table-tr5,
+.add-table-tr6,
+.add-table-tr7,
+.add-table-tr8{
     display: flex;
 }
 
-.add-table-th1 {
-    min-width: 145px;
-    flex-basis: 10%;
+.add-table-left{
+    flex-basis: 20%;
+    line-height: 1.5;
+    font-weight: bolder;
+    
 }
-
-.add-table-th2 {
-    min-width: 150px;
-    flex-basis: 5%;
-}
-
-.add-table-th3 {
-    min-width: 200px;
-    flex-basis: 15%;
-}
-
-.add-table-th4 {
-    min-width: 180px;
-    width: 180px;
-}
-
-.add-table-th5 {
-    min-width: 60px;
-    width: 60px;
-}
-
-.add-table-th6 {
-    min-width: 150px;
-    width: 150px;
-}
-
-.add-table-th7 {
-    min-width: 160px;
-    width: 160px;
+.add-table-right{
+    min-width: 100px;
+    max-width: 190px;
     line-height: 1.5;
 }
-
-.add-table-th8 {
-    min-width: 60px;
-    width: 80px;
-}
-
-input {
-    justify-content: center;
-    background-color: rgba(240, 248, 255, 0);
-    border: 0;
-    margin: auto auto;
-    max-lines: 2;
-    line-height: 3;
-}
-
 .addBtn {
     box-shadow: 2px 2px 2px purple, 3px 3px 2px rgb(48, 1, 48), 3px 3px 2px rgb(182, 54, 182) inset;
     background: linear-gradient(45deg, rgb(246, 130, 246), rgb(228, 121, 228));
-    backdrop-filter: blur(10px);
+    backdrop-filter: blurs(10px);
     color: gold;
     text-shadow: 1px 1px 3px darkgoldenrod, 2px 2px 3px rgb(85, 62, 4);
     width: 100px;
@@ -109,4 +156,15 @@ input {
     font-weight: bolder;
     border: 2px solid rgba(255, 217, 0, 0.39);
 
+}
+
+.red-point{
+    background-image: url(../background/red-drawing-pin-mini.png);
+    position: absolute;
+    top: -150px;
+    left: -130px;
+    z-index: 2;
+    width: 300px;
+    height: 300px;
+    transform: scale(0.25);
 }
