@@ -51,7 +51,7 @@
         </div>
         <div class="system-opt" id="system-opt">
             <div>帳號管理</div>
-            <div>歷史紀錄查詢</div>
+            <div>歷史紀錄</div>
         </div>
     </header>
     <main>

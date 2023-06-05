@@ -1,5 +1,6 @@
 body {
     background-color: rgb(255, 230, 154);
+    background-image: url(../background/170b7e9f0b542d3a.webp);
 }
 
 .formcss {
@@ -99,7 +100,7 @@ img{
     height: 85%;
     max-height: 170px;
     width: 240px;
-    box-shadow: 0 0 8px rgb(29, 4, 93) inset;
+    box-shadow: 0 0 8px rgb(29, 4, 93) ;
     display: block;
     background-color: rgb(229, 236, 242);
     margin-top: 5px;

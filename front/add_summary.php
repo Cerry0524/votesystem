@@ -10,11 +10,11 @@
                 <div class="red-point"></div>
                 <div class="add-table-div1-left">
                     <div class="add-table-img">
-                        <img src="#" id="preview${optionIndex}" alt="Preview Image">
-                        <input type="file" name="imgInput[]" class="imgInput" onchange="previewImage(this, 'preview${optionIndex}')">
+                        <img src="../background/Photos-new-icon.png" id="preview${optionIndex}" alt="Preview Image">
+                        <input type="file" name="imgInput[]" id="imgInput" onchange="previewImage(this, 'preview${optionIndex}')">
                     </div>
                     <div class="add-table-desc">
-                        描述<input type="text" name="desc[]" class="desc">
+                        描述<input type="text" name="desc[]" id="desc">
                     </div>
                 </div>
                 <div class="add-table-div1-right">
@@ -83,11 +83,11 @@
                 <div class="red-point"></div>
                 <div class="add-table-div1-left">
                     <div class="add-table-img">
-                        <img src="#" id="preview${optionIndex}" alt="Preview Image">
-                        <input type="file" name="imgInput[]" class="imgInput" onchange="previewImage(this, 'preview${optionIndex}')">
+                        <img src="../background/Photos-new-icon.png" id="preview${optionIndex}" alt="Preview Image">
+                        <input type="file" name="imgInput[]" id="imgInput" onchange="previewImage(this, 'preview${optionIndex}')">
                     </div>
                     <div class="add-table-desc">
-                        描述<input type="text" name="desc[]" class="desc">
+                        描述<input type="text" name="desc[]" id="desc">
                     </div>
                 </div>
                 <div class="add-table-div1-right">
