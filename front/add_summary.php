@@ -10,11 +10,11 @@
                 <div class="red-point"></div>
                 <div class="add-table-div1-left">
                     <div class="add-table-img">
-                        <img src="#" id="preview" alt="Preview Image">
-                        <input type="file" name="imgInput" id="imgInput">
+                        <img src="#" id="preview${optionIndex}" alt="Preview Image">
+                        <input type="file" name="imgInput[]" class="imgInput" onchange="previewImage(this, 'preview${optionIndex}')">
                     </div>
                     <div class="add-table-desc">
-                        描述<input type="text" name="desc" id="desc" value="">
+                        描述<input type="text" name="desc[]" class="desc">
                     </div>
                 </div>
                 <div class="add-table-div1-right">
@@ -73,8 +73,6 @@
 <script>
     let optionIndex = 1;
     let count = 1;
-    let img = document.getElementById("preview");
-    let imgInput = document.getElementById("imgInput");
 
     function addOption(el) {
 
@@ -85,11 +83,11 @@
                 <div class="red-point"></div>
                 <div class="add-table-div1-left">
                     <div class="add-table-img">
-                        <img src="#" id="preview" alt="Preview Image">
-                        <input type="file" name="imgInput" id="imgInput">
+                        <img src="#" id="preview${optionIndex}" alt="Preview Image">
+                        <input type="file" name="imgInput[]" class="imgInput" onchange="previewImage(this, 'preview${optionIndex}')">
                     </div>
                     <div class="add-table-desc">
-                        描述<input type="text" name="desc" id="desc" value="">
+                        描述<input type="text" name="desc[]" class="desc">
                     </div>
                 </div>
                 <div class="add-table-div1-right">
@@ -155,11 +153,10 @@
         previewImage(event);
     });
 
-    function previewImage(event) {
-        let input = event.target;
+    function previewImage(input, previewId) {
         let reader = new FileReader();
         reader.onload = function(e) {
-            img.src = e.target.result;
+            document.getElementById(previewId).src = e.target.result;
         };
         if (input.files && input.files[0]) {
             reader.readAsDataURL(input.files[0]);

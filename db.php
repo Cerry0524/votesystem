@@ -52,8 +52,6 @@ function find($table,$arg){
         
     }
 
-    echo $sql;
-
     $row=$pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
 
     return $row;
