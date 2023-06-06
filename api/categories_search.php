@@ -8,8 +8,8 @@ $categories=all('categories');
 
 // $sql_categories_detp="select `description` from `categories` where `id`='{$category_id}'";
 // $category_detp=$pdo->query($sql_categories_detp)->fetch(PDO::FETCH_ASSOC);
-$category_detp=all('categories',$category_id);
-// dd($category_detp);
+$category_detp=find('categories',['id' => $category_id]);
+
 $sql_categories_select = "SELECT `summary`.`effective_time` as '日期',
                              `summary`.`class` as '屬性',
                              `summary`.`project` as '項目',
