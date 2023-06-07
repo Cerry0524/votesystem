@@ -1,18 +1,18 @@
-<?php
-/* echo "<pre>";
-print_r($categories_select);
-echo "</pre>"; */
-?>
 <div class="down">
     <div class="down-content">
         <?php
         foreach ($categories_select as $category_select) { ?>
             <div class="result">
                 <div class="result-title">
-                    日期
+                    發生<br>時間
                 </div>
                 <div class="result-content">
-                    <?= $category_select['日期']; ?>
+                    <?php
+                    $category_createdtime=$category_select['日期'];
+                    echo date("Y 年 n 月 j 日",strtotime($category_createdtime));
+                    echo "<br>";
+                    echo date("H 時 m 分",strtotime($category_createdtime));
+                    ?>
                 </div>
                 <div class="result-title">
                     項目
@@ -39,10 +39,15 @@ echo "</pre>"; */
                     <?= $category_select['金額']; ?>
                 </div>
                 <div class="result-title">
-                    登載時間
+                    登載<br>時間
                 </div>
                 <div class="result-content">
-                    <?= $category_select['登載時間']; ?>
+                    <?php
+                    $category_time=$category_select['登載時間'];
+                    echo date("Y 年 n 月 j 日",strtotime($category_time));
+                    echo "<br>";
+                    echo date("H 時 m 分",strtotime($category_time));
+                     ?>
                 </div>
                 <div class="result-title">
                     設定
