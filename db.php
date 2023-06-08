@@ -1,195 +1,206 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <?php
-$dsn="mysql:host=localhost;charset=utf8;dbname=familything";
-$pdo=new PDO($dsn,'root','');
+$dsn = "mysql:host=localhost;charset=utf8;dbname=familything";
+$pdo = new PDO($dsn, 'root', '');
 date_default_timezone_set("Asia/Taipei");
 session_start();
 
-$year=date('Y');
-$month=date('m');
+$year = date('Y');
+$month = date('m');
 
-function pdo($dbname='familything'){
-    $dsn="mysql:host=localhost;charset=utf8;dbname=$dbname";
-    $pdo=new PDO($dsn,'root','');
+function pdo($dbname = 'familything')
+{
+    $dsn = "mysql:host=localhost;charset=utf8;dbname=$dbname";
+    $pdo = new PDO($dsn, 'root', '');
 
     return $pdo;
 }
 
 
 //傾印陣列....direct_dump
-function dd($array){
+function dd($array)
+{
     echo "<pre>";
     print_r($array);
     echo "</pre>";
 }
 
 //用來執行select比較複雜的語法
-function q($sql){
-    $pdo=pdo();
+function q($sql)
+{
+    $pdo = pdo();
     return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
 
 //header引導
-function to($url){
-    header("location:".$url);
+function to($url)
+{
+    header("location:" . $url);
 }
 
-function find($table,$arg){
+function find($table, $arg)
+{
 
-    $pdo=pdo();
+    $pdo = pdo();
 
-    $sql="select * from `$table`  where ";
+    $sql = "select * from `$table`  where ";
 
-    if(is_array($arg)){
-        foreach($arg as $key => $value){
+    if (is_array($arg)) {
+        foreach ($arg as $key => $value) {
 
-            $tmp[]="`$key`='$value'";
+            $tmp[] = "`$key`='$value'";
         }
 
-        $sql .= join(" && ",$tmp);
-    }else{
+        $sql .= join(" && ", $tmp);
+    } else {
 
         $sql .= " `id` = '$arg' ";
-        
     }
 
-    $row=$pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+    $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
 
     return $row;
 }
 
 //一次更新一筆
-function update($table,$cols,...$arg){
-    $pdo=pdo();
-    
-    foreach($cols as $key => $value){
-        if($key!='id'){
-            $tmpCol[]= "`$key`='$value'";
+function update($table, $cols, ...$arg)
+{
+    $pdo = pdo();
+
+    foreach ($cols as $key => $value) {
+        if ($key != 'id') {
+            $tmpCol[] = "`$key`='$value'";
         }
     }
 
-    $sql="update `$table` set  ".join(",",$tmpCol);
+    $sql = "update `$table` set  " . join(",", $tmpCol);
 
-    if(!empty($arg)){
-        if(is_array($arg[0])){
-            foreach($arg[0] as $key => $value){
-        
-                $tmpArg[]="`$key`='$value'";
+    if (!empty($arg)) {
+        if (is_array($arg[0])) {
+            foreach ($arg[0] as $key => $value) {
+
+                $tmpArg[] = "`$key`='$value'";
             }
-    
-            $sql .= " where ".join(" && ",$tmpArg);
-    }else{
-        $sql .=  " where ".$arg[0];
-    }
-}else{
-    $sql .= " where `id`='{$cols['id']}'";
-}
 
-    $result=$pdo->exec($sql);
+            $sql .= " where " . join(" && ", $tmpArg);
+        } else {
+            $sql .=  " where " . $arg[0];
+        }
+    } else {
+        $sql .= " where `id`='{$cols['id']}'";
+    }
+
+    $result = $pdo->exec($sql);
 
     return $result;
 }
 
-function insert($table,$cols){
-    $pdo=pdo();
-    $col=array_keys($cols);
+function insert($table, $cols)
+{
+    $pdo = pdo();
+    $col = array_keys($cols);
 
-/*     $sql ="insert into $table (`";
+    /*     $sql ="insert into $table (`";
     $sql .=join("`,`", $col);
     $sql .="`) values('";
     $sql .=join("','",$cols);
     $sql .="')"; */
 
-    $sql="insert into $table (`" . join("`,`", $col) . "`) values('".join("','",$cols)."')";
+    $sql = "insert into $table (`" . join("`,`", $col) . "`) values('" . join("','", $cols) . "')";
     //echo $sql;
 
-    $result=$pdo->exec($sql);
+    $result = $pdo->exec($sql);
 
     return $result;
 }
 
-function del($table,$arg){
-    $pdo=pdo();
+function del($table, $arg)
+{
+    $pdo = pdo();
 
-    $sql="delete from `$table` where ";
-    if(is_array($arg)){
-        foreach($arg as $key => $value){
+    $sql = "delete from `$table` where ";
+    if (is_array($arg)) {
+        foreach ($arg as $key => $value) {
 
-            $tmp[]="`$key`='$value'";
+            $tmp[] = "`$key`='$value'";
         }
 
-        $sql .= join(" && ",$tmp);
-    }else{
+        $sql .= join(" && ", $tmp);
+    } else {
 
         $sql .= " `id` = '$arg' ";
-        
     }
 
     // echo $sql;
     return $pdo->exec($sql);
 }
 
-function save($table,$cols){
+function save($table, $cols)
+{
 
-    if(isset($cols['id'])){
-        update($table,$cols);
-    }else{
-        insert($table,$cols);
+    if (isset($cols['id'])) {
+        update($table, $cols);
+    } else {
+        insert($table, $cols);
     }
 }
 
 
 //記數用的
-function _count($table,...$arg){
-    $pdo=pdo();
+function _count($table, ...$arg)
+{
+    $pdo = pdo();
 
-    $sql="select count(*) from $table ";
+    $sql = "select count(*) from $table ";
 
-    if(!empty($arg)){
-        if(is_array($arg[0])){
-                foreach($arg[0] as $key => $value){
-        
-                    $tmp[]="`$key`='$value'";
-                }
-        
-                $sql .= " where ".join(" && ",$tmp);
-        }else{
-            $sql .= " where ".$arg[0];
+    if (!empty($arg)) {
+        if (is_array($arg[0])) {
+            foreach ($arg[0] as $key => $value) {
+
+                $tmp[] = "`$key`='$value'";
+            }
+
+            $sql .= " where " . join(" && ", $tmp);
+        } else {
+            $sql .= " where " . $arg[0];
         }
     }
 
-    if(isset($arg[1])){
-        $sql .= " where ".$arg[1];
+    if (isset($arg[1])) {
+        $sql .= " where " . $arg[1];
     }
 
-    $rows=$pdo->query($sql)->fetchColumn();
+    $rows = $pdo->query($sql)->fetchColumn();
 
     return $rows;
 }
 
 //比大小
-function math($table,$math,$col,...$arg){
-    $pdo=pdo();
+function math($table, $math, $col, ...$arg)
+{
+    $pdo = pdo();
 
-    $sql="select $math(`$col`) from $table ";
+    $sql = "select $math(`$col`) from $table ";
 
-    if(!empty($arg)){
-        if(is_array($arg[0])){
-                foreach($arg[0] as $key => $value){
-        
-                    $tmp[]="`$key`='$value'";
-                }
-        
-                $sql .= " where ".join(" && ",$tmp);
-        }else{
-            $sql .=  " where ".$arg[0];
+    if (!empty($arg)) {
+        if (is_array($arg[0])) {
+            foreach ($arg[0] as $key => $value) {
+
+                $tmp[] = "`$key`='$value'";
+            }
+
+            $sql .= " where " . join(" && ", $tmp);
+        } else {
+            $sql .=  " where " . $arg[0];
         }
     }
 
-    if(isset($arg[1])){
-        $sql .=  " where ".$arg[1];
+    if (isset($arg[1])) {
+        $sql .=  " where " . $arg[1];
     }
 
-    $rows=$pdo->query($sql)->fetchColumn();
+    $rows = $pdo->query($sql)->fetchColumn();
 
     return $rows;
 }
@@ -209,29 +220,30 @@ function math($table,$math,$col,...$arg){
  * all(`topcis`,['type'=>1,,'login'=>1], " order by `id` desc")
 */
 
-function all($table,...$arg){
-    $pdo=pdo();
+function all($table, ...$arg)
+{
+    $pdo = pdo();
 
-    $sql="select * from $table ";
+    $sql = "select * from $table ";
 
-    if(!empty($arg)){
-        if(is_array($arg[0])){
-                foreach($arg[0] as $key => $value){
-        
-                    $tmp[]="`$key`='$value'";
-                }
-        
-                $sql .= " where ".join(" && ",$tmp);
-        }else{
-            $sql .= " where ".$arg[0];
+    if (!empty($arg)) {
+        if (is_array($arg[0])) {
+            foreach ($arg[0] as $key => $value) {
+
+                $tmp[] = "`$key`='$value'";
+            }
+
+            $sql .= " where " . join(" && ", $tmp);
+        } else {
+            $sql .= " where " . $arg[0];
         }
     }
 
-    if(isset($arg[1])){
-        $sql .= " where ".$arg[1];
+    if (isset($arg[1])) {
+        $sql .= " where " . $arg[1];
     }
 
-    $rows=$pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    $rows = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
     return $rows;
 }

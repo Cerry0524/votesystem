@@ -65,7 +65,7 @@
         console.log('category changed');
         const selectedCategoryId = this.value;
         const dateStart = document.getElementById('dateStart').value;
-        const dateEnd = document.getElementById('dateEnd').value;
+        const dateEnd = ((document.getElementById('dateEnd').value==0)?<?=date("Y-m-j");?>:document.getElementById('dateEnd').value);
 
         window.location.href = `?do=categories_search_up&category_id=${selectedCategoryId}&dateStart=${dateStart}&dateEnd=${dateEnd}`;
     });
@@ -74,7 +74,7 @@
         console.log('start date changed'); // Debug line
         const selectedCategoryId = document.querySelector('[name="option"]').value;
         const dateStart = this.value;
-        const dateEnd = document.getElementById('dateEnd').value;
+        const dateEnd = ((document.getElementById('dateEnd').value==0)?<?=date("Y-m-j");?>:document.getElementById('dateEnd').value);
 
         window.location.href = `?do=categories_search_up&category_id=${selectedCategoryId}&dateStart=${dateStart}&dateEnd=${dateEnd}`;
     });
@@ -83,7 +83,7 @@
         console.log('end date changed'); // Debug line
         const selectedCategoryId = document.querySelector('[name="option"]').value;
         const dateStart = document.getElementById('dateStart').value;
-        const dateEnd = this.value;
+        const dateEnd = ((this.value==0)?<?=date("Y-m-j");?>:this.value);
 
         window.location.href = `?do=categories_search_up&category_id=${selectedCategoryId}&dateStart=${dateStart}&dateEnd=${dateEnd}`;
     });

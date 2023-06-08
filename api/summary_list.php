@@ -1,6 +1,6 @@
 <?php
 
-$time = ($_GET['time']) ?? "asc";
+$time = ($_GET['time']) ?? "desc";
 $proj = ($_GET['proj']) ?? "asc";
 $detail = ($_GET['detail']) ?? "asc";
 $cate = ($_GET['cate']) ?? "asc";
@@ -101,7 +101,7 @@ switch ($btnClick) {
         $select_order = "`summary`.`price` Desc";
         break;
     default:
-        $select_order = "`summary`.`effective_time` Asc";
+        $select_order = "`summary`.`effective_time` Desc";
         break;
 }
 

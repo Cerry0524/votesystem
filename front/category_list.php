@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="../css/style_category.css">
 <?php include_once "./api/category_list.php" ?>
 
-<table class="category-table">
+<table class="table table-striped table-hover table-dark ">
     <tr>
         <th>項次</th>
         <th>類別名稱</th>
