@@ -44,13 +44,7 @@
     </div>
     <div class="canva">
         <div class="canva-left">
-        <?php
-                $values=[];
-                foreach ($categories_select_sum as $select_sum) {
-                    $values[]=$select_sum[0];
-                }
-                echo "'" . join("','", $values) . "'";
-                ?>
+            <canvas id="pieAll"></canvas>
         </div>
         <div class="canva-right">
             <canvas id="ClasslineBar"></canvas>
@@ -64,6 +58,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1"></script>
 
 <script>
+    const pieAll = document.getElementById('pieAll');
     const ClasslineBar = document.getElementById('ClasslineBar');
 
     document.querySelector('[name="option"]').addEventListener('change', function() {
@@ -104,6 +99,52 @@
     document.getElementById('dateEnd').value = dateEnd || '';
 
 
+
+    //以下是圓餅圖pieAll設定
+    const datapieAll = {
+        labels: [
+            <?php
+            echo "'" . join("','", array_keys($categories_select_sum)) . "'";
+            ?>
+        ],
+        datasets: [{
+            data: [
+                <?php
+                $values = [];
+                foreach ($categories_select_sum as $select_sum) {
+                    $values[] = $select_sum[0];
+                }
+                echo "'" . join("','", $values) . "'";
+                ?>
+            ],
+            backgroundColor: ['#FF2677', '#FFBD33', '#DBFF33', '#75FF33', '#33FF57', '#33FFBD', '#33DBFF', '#3375FF', '#5733FF', '#BD33FF', '#FF33DB', '#2677FF'],
+            borderWidth: 1
+        }]
+    };
+
+
+
+    const optionspieAll = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: true,
+            }
+        }
+    };
+
+    const pieChart = new Chart(pieAll, {
+        type: 'pie',
+        data: datapieAll,
+        options: optionspieAll
+    });
+
+
+    //以下是長條圖ClasslineBar設定
+    const DATA_COUNT = 11;
+    const NUMBER_CFG = {count:DATA_COUNT, min: -100, max: 100};
+
     const datalinebar = {
         labels: [
             <?php
@@ -111,19 +152,40 @@
             ?>
         ],
         datasets: [{
-            label: '支出',
-            data: [
+                label: '月支出',
+                data:[
                 <?php
-                $values=[];
+                $values = [];
                 foreach ($categories_select_sum as $select_sum) {
-                    $values[]=$select_sum[0];
+                    $values[] = $select_sum[0];
                 }
                 echo "'" . join("','", $values) . "'";
                 ?>
             ],
-            backgroundColor: ['#FF5733', '#FFBD33', '#DBFF33', '#75FF33', '#33FF57', '#33FFBD', '#33DBFF', '#3375FF', '#5733FF', '#BD33FF', '#FF33DB'],
-            hoverOffset: 4
-        }]
+                borderColor:'#FF2677' ,
+                backgroundColor: '#FFD9E7',
+                borderWidth: 2,
+                borderRadius: Number.MAX_VALUE,
+                borderSkipped: false,
+            },
+            {
+                label: '月收入',
+                data:[
+                <?php
+                $values = [];
+                foreach ($categories_select_sum as $select_sum) {
+                    $values[] = $select_sum[0];
+                }
+                echo "'" . join("','", $values) . "'";
+                ?>
+            ],
+                borderColor:  '#4540E3',
+                backgroundColor:  '#47D1FD',
+                borderWidth: 2,
+                borderRadius: 5,
+                borderSkipped: false,
+            }
+        ]
     };
 
     const optionslinebar = {

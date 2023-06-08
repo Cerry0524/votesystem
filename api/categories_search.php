@@ -48,7 +48,7 @@ $categories_select = q($sql_categories_select);
 $everyMonthFirst = [];
 $everyMonthLast = [];
 
-$dateEnd2=($_GET['dateEnd']!="")?$_GET['dateEnd']:date("Y-m-j");
+$dateEnd2=(isset($_GET['dateEnd'])!="")?$_GET['dateEnd']:date("Y-m-j");
 
 for ($i = 11; $i >= 0; $i--) {
        $everyMonthFirst[] = date("Y-m-j", strtotime("first day of -$i month", strtotime($dateEnd2)));

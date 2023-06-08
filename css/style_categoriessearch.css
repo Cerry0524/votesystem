@@ -55,11 +55,11 @@ body{
     border: 1px solid black;
 }
 .canva-left{
-    flex-basis: 50%;
+    flex-basis: 30%;
     border: 1px solid black;
 }
 .canva-right{
-    flex-basis: 50%;
+    flex-basis: 70%;
     border: 1px solid black;
 }
 
