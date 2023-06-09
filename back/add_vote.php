@@ -20,29 +20,34 @@
             </div>
         </div>
         <div class="form-group offset-2">
-            <label  class="control-label col-sm-2" for="type">單複選：</label>
+            <label class="control-label col-sm-2" for="type">單複選：</label>
             <div class="col-sm-offset-4 col-sm-6">
                 <input type="radio" name="type" value="1">單選&nbsp;&nbsp;
                 <input type="radio" name="type" value="2">複選
             </div>
         </div>
         <div class="form-group offset-2">
-            <label  class="control-label col-sm-4" for="type">是否公開：</label>
+            <label class="control-label col-sm-4" for="type">是否公開：</label>
             <div class="col-sm-offset-4 col-sm-6">
                 <input type="radio" name="type" value="0">是&nbsp;&nbsp;
                 <input type="radio" name="type" value="1">否
             </div>
         </div>
-        <div class="form-group offset-2 ">
+        <div class="form-group offset-2 col-8">
             <label class="control-label col-sm-offset-2 col-sm-4" for="img">上傳圖檔：</label>
-            <input class="col-sm-offset-2 btn btn-dark"  type="file" name="img" id="img">
+            <input type="file" class="form-control " id="img">
         </div>
-        <div class="form-group offset-2 options">
-            <div>
-                <label class="control-label col-sm-2" for="description" >項目：</label>
-                <input type="text" name="description[]" class="col-sm-8 description-input">
-                <span onclick="addOption()">+</span>
-                <span onclick="removeOption(this)">-</span>
+        <hr>
+        <div>
+            <div class="form-group offset-2 options col-7">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="description">項目</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="description[]">
+                    &nbsp&nbsp&nbsp
+                    <span onclick="addOption()" class="lh-lg fs-5">+</span>
+                    &nbsp&nbsp&nbsp
+                    <span onclick="removeOption(this)" class="lh-lg fs-5">-</span>
+                </div>
             </div>
         </div>
         <div class="form-group  offset-2 ">
@@ -59,13 +64,18 @@
 
 <script>
     function addOption() {
-        let opt = `<div>
-                <label for="description">項目：</label>
-                <input type="text" name="description[]"  class="description-input">
-                <span onclick="addOption()">+</span>
-                <span onclick="removeOption(this)">-</span>
-            </div>`
-        $(".options").append(opt);
+        let opt = `
+        <div class="form-group offset-2 options col-7">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="description">項目</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="description[]">
+                &nbsp&nbsp&nbsp
+                <span onclick="addOption()" class="lh-lg fs-5">+</span> 
+                &nbsp&nbsp&nbsp
+                <span onclick="removeOption(this)" class="lh-lg fs-5">-</span>
+            </div>
+        </div>`
+        $(".options").parent().append(opt);
     }
 
     function removeOption(el) {
