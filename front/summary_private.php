@@ -83,6 +83,7 @@ include_once "./api/summary_all.php";
     </div>
     <div class="summary-private-footer"></div>
 </div>
+<?php include_once "./front/vote_list.php"; ?>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1"></script>
 

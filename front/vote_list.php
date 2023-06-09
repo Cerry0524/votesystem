@@ -1,46 +1,72 @@
-<button onclick="location.href='?do=add_vote'">新增投票</button>
-<ul class="vote-list">
-    <div class="vote-subject-title">
-        <div class="vote-item">序號</div>
-        <div class="vote-item">投票主題</div>
-        <div class="vote-item">功能</div>
-    </div>
-<?php
-$sql="select * from `topics` where `close_time` >= '".date("Y-m-d H:i:s")."'";
-$rows=$pdo->query($sql)->fetchAll();
-foreach($rows as $idx => $row){
-?>
-<li class="vote-subject">
-    <div class="vote-item"><?=$idx+1;?></div>
+<link rel="stylesheet" href="../css/style_votelist.css">
 
-    <div class="vote-item"><?=$row['subject'];?></div>
-    <div>
-        <button class="type-info">
-            <?php
-                switch($row['type']){
-                    case 1:
-                        echo "單選";
-                    break;
-                    case 2:
-                        echo "多選";
-                    break;
-                }                
-            ?>
-        </button>
-        <?php
-            if($row['login']==1){
-                echo "<button class='vip-login'>";
-                echo "會員限定";                
-            }else{
-                echo "<button class='normal' >";
-                echo "公開";
-            }
-        ?>
-        </button>
-        <button onclick="location.href='?do=vote&id=<?=$row['id'];?>'">我要投票</button>
+<div class="container vote-list">
+    <div class="row justify-content-md-center text-center  fw-bolder fs-3">
+        <div class="col-md-1 text-center">
+            序號
+        </div>
+        <div class="col-md-3">
+            投票主題
+        </div>
+        <div class="col-md-3  text-center">
+            功能
+        </div>
     </div>
-</li>
-<?php
-}
+    <?php
+
+    if(!isset($_SESSION['login'])){
+        $sql = "select * from `topicsv` where `private`=0 AND `close_time` >= '" . date("Y-m-d H:i:s") . "'";
+    }else{
+        $sql = "select * from `topicsv` where `close_time` >= '" . date("Y-m-d H:i:s") . "'";
+    };
+
+   
+    $rows = $pdo->query($sql)->fetchAll();
+
+
+
+    foreach ($rows as $idx => $row) {
+    ?>
+
+        <div class="row justify-content-md-center fs-5">
+            <div class="col-md-1 text-center">
+                <?= $idx + 1; ?>
+            </div>
+            <div class="col-md-3 fw-bolder">
+                <?= $row['subject']; ?>
+            </div>
+            <div class="col-md-3 text-center">
+                    <?php
+                    switch ($row['type']) {
+                        case 0:
+                            echo "<button class='btn btn-primary rounded-circle border border-dark'>";
+                            echo "單";
+                            break;
+                        case 1:
+                            echo "<button class='btn btn-warning rounded-circle border border-dark'>";
+                            echo "多";
+                            break;
+                    }
+                    ?>
+                </button>
+                <?php
+                if ($row['private'] == 1) {
+                    echo "<button class='btn btn-danger border border-dark border-1 rounded-pill '>";
+                    echo "私人";
+                } else {
+                    echo "<button class='btn btn-success border border-dark border-1 rounded-pill' >";
+                    echo "公開";
+                }
+                ?>
+                </button>
+                <button class='btn btn-secondary border border-dark border-1'
+                        onclick="location.href='?do=vote_list&id=<?= $row['id']; ?>'">投票</button>
+            </div>
+        </div>
+        <?php
+    }
 ?>
-</ul>
+
+</div>
+
+<button onclick="location.href='?do=add_vote'" class="btn btn-primary">新增投票</button>

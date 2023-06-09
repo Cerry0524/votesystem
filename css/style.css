@@ -122,22 +122,6 @@ header>div>a {
     padding-top: 15px;
 }
 
-.vote-list {
-    display: flex;
-    flex-basis: 100%;
-    height: 45vh;
-    border-left: 2px solid darkblue;
-    border-right: 2px solid darkblue;
-    border-bottom: 2px solid darkblue;
-    background-color: rgb(205, 153, 253);
-    padding: 20px;
-}
-
-.vote-list-form {
-    border: 1px solid black;
-    flex-basis: 100%;
-}
-
 .summary-private {
     display: flex;
     flex-direction: column;

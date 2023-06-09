@@ -69,7 +69,7 @@
         } else {
             if (!isset($_SESSION['login'])) {
                 include "./front/summary_all.php";
-                include "./front/vote_all.php";
+                include "./front/vote_list.php";
             } else {
                 include "./front/summary_private.php";
             }
