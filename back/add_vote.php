@@ -4,38 +4,38 @@
         <div class="form-group offset-2">
             <label class="control-label col-sm-2" for="topic">題目:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="topic" placeholder="輸入投票題目">
+                <input type="text" class="form-control" name="topic" id="topic" placeholder="輸入投票題目">
             </div>
         </div>
         <div class="form-group offset-2">
             <label class="control-label col-sm-offset-2 col-sm-2" for="open_time">開放時間:</label>
             <div class="col-sm-10">
-                <input type="datetime-local" class="form-control" id="open_time">
+                <input type="datetime-local" class="form-control" id="open_time" name="open_time">
             </div>
         </div>
         <div class="form-group offset-2">
             <label class="control-label col-sm-offset-2 col-sm-2" for="close_time">關閉時間:</label>
             <div class="col-sm-10">
-                <input type="datetime-local" class="form-control" id="close_time">
+                <input type="datetime-local" class="form-control" id="close_time"  name="close_time">
             </div>
         </div>
         <div class="form-group offset-2">
             <label class="control-label col-sm-2" for="type">單複選：</label>
             <div class="col-sm-offset-4 col-sm-6">
-                <input type="radio" name="type" value="1">單選&nbsp;&nbsp;
-                <input type="radio" name="type" value="2">複選
+                <input type="radio" name="type" value="0">單選&nbsp;&nbsp;
+                <input type="radio" name="type" value="1">複選
             </div>
         </div>
         <div class="form-group offset-2">
-            <label class="control-label col-sm-4" for="type">是否公開：</label>
+            <label class="control-label col-sm-4" for="private">是否公開：</label>
             <div class="col-sm-offset-4 col-sm-6">
-                <input type="radio" name="type" value="0">是&nbsp;&nbsp;
-                <input type="radio" name="type" value="1">否
+                <input type="radio" name="private" value="0">是&nbsp;&nbsp;
+                <input type="radio" name="private" value="1">否
             </div>
         </div>
         <div class="form-group offset-2 col-8">
             <label class="control-label col-sm-offset-2 col-sm-4" for="img">上傳圖檔：</label>
-            <input type="file" class="form-control " id="img">
+            <input type="file" class="form-control " id="img" name="img">
         </div>
         <hr>
         <div>

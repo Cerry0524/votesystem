@@ -55,9 +55,6 @@ for ($i = 0; $i < count($_POST['project']); $i++) {
         'mem_id' => $_POST['mem_id'][$i],
         'project_id' => $project_id['id'],
         'img_id' => $img_id,
-        'topic_id' => "",
-        'vote_time' => "",
-        'records' => "",
     ]);
 
     if ($category_id > 0) {
