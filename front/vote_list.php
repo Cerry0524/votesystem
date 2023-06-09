@@ -60,7 +60,22 @@
                 ?>
                 </button>
                 <button class='btn btn-secondary border border-dark border-1'
-                        onclick="location.href='?do=vote_list&id=<?= $row['id']; ?>'">投票</button>
+                        onclick="location.href='?do=vote_page&id=<?= $row['id']; ?>'">投票</button>
+
+                <?php
+                $created_mem="";
+                 if(!isset($_SESSION['login'])){       
+                    $sql="SELECT `topicsv`.`subject`,`logs`.`created_time`,`members`.`acc`
+                          from `logs` 
+                          left join `topicsv` on `topicsv`.`id`=`logs`.`topic_id`
+                          LEFT JOIN `members` ON `members`.`id`=`logs`.`mem_id`
+                          where `members`.`acc`='{$_SESSION['login']}'
+                          ORDER by `logs`.`created_time` ASC";
+                    $created_mem=$pdo->$query($sql)->fetch(PDO::FETCH_ASSOC);       
+                 }
+                 ?>
+                <button class='btn btn-secondary border border-dark border-1'
+                        onclick="location.href='?do=vote_edit&id=<?= $row['id']; ?>'">更新</button>
             </div>
         </div>
         <?php
@@ -70,3 +85,4 @@
 </div>
 
 <button onclick="location.href='?do=add_vote'" class="btn btn-primary">新增投票</button>
+
