@@ -45,7 +45,7 @@
             <div onclick="location.href='?do=add_summary'">收支登記</div>
             <div onclick="location.href='?do=summary_list'">收支清單</div>
             <div onclick="location.href='?do=category_list'">類別管理</div>
-            <div onclick="location.href='?do=categories_search_up'">特定查詢</div>
+            <div onclick="location.href='?do=categories_search'">特定查詢</div>
             <div onclick="location.href='?do=vote_list'">投票功能</div>
         </div>
         <div class="system-opt" id="system-opt">
