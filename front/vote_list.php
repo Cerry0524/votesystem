@@ -13,41 +13,54 @@
         </div>
     </div>
     <?php
-
-    if(!isset($_SESSION['login'])){
+    if (!isset($_SESSION['login'])) {
         $sql = "select * from `topicsv` where `private`=0 AND `close_time` >= '" . date("Y-m-d H:i:s") . "'";
-    }else{
+    } else {
         $sql = "select * from `topicsv` where `close_time` >= '" . date("Y-m-d H:i:s") . "'";
+        $sql_created_topics = "SELECT `topicsv`.`subject`,
+                                      `logs`.`created_time`,
+                                      `members`.`acc`
+                               FROM `logs` 
+                               LEFT JOIN `topicsv` ON `topicsv`.`id`=`logs`.`topic_id`
+                               LEFT JOIN `members` ON `members`.`id`=`logs`.`mem_id`
+                               GROUP By `topicsv`.`id`
+                               ORDER by `logs`.`created_time` ASC";
+        $created_topics = q($sql_created_topics);
     };
-
-   
-    $rows = $pdo->query($sql)->fetchAll();
-
+    $rows = q($sql);
 
 
     foreach ($rows as $idx => $row) {
     ?>
-
-        <div class="row justify-content-md-center fs-5">
+        <div class="row justify-content-md-center fs-5  mb-1">
             <div class="col-md-1 text-center">
                 <?= $idx + 1; ?>
             </div>
             <div class="col-md-3 fw-bolder">
-                <?= $row['subject']; ?>
+                <?php
+                echo $row['subject'];
+                foreach ($created_topics as $created_topic) {
+                    if ($created_topic['subject'] == $row['subject'] && $created_topic['acc'] == $_SESSION['login']) {
+                ?>
+                        <button class='btn btn-info border border-dark border-1' onclick="location.href='?do=vote_edit&id=<?= $row['id']; ?>'">修正</button>
+                <?php
+                    };
+                }
+                ?>
             </div>
             <div class="col-md-3 text-center">
-                    <?php
-                    switch ($row['type']) {
-                        case 0:
-                            echo "<button class='btn btn-primary rounded-circle border border-dark'>";
-                            echo "單";
-                            break;
-                        case 1:
-                            echo "<button class='btn btn-warning rounded-circle border border-dark'>";
-                            echo "多";
-                            break;
-                    }
-                    ?>
+                <?php
+                switch ($row['type']) {
+                    case 0:
+                        echo "<button class='btn btn-primary rounded-circle border border-dark'>";
+                        echo "單";
+                        break;
+                    case 1:
+                        echo "<button class='btn btn-warning rounded-circle border border-dark'>";
+                        echo "多";
+                        break;
+                }
+                ?>
                 </button>
                 <?php
                 if ($row['private'] == 1) {
@@ -59,30 +72,35 @@
                 }
                 ?>
                 </button>
-                <button class='btn btn-secondary border border-dark border-1'
-                        onclick="location.href='?do=vote_page&id=<?= $row['id']; ?>'">投票</button>
-
                 <?php
-                $created_mem="";
-                 if(!isset($_SESSION['login'])){       
-                    $sql="SELECT `topicsv`.`subject`,`logs`.`created_time`,`members`.`acc`
-                          from `logs` 
-                          left join `topicsv` on `topicsv`.`id`=`logs`.`topic_id`
-                          LEFT JOIN `members` ON `members`.`id`=`logs`.`mem_id`
-                          where `members`.`acc`='{$_SESSION['login']}'
-                          ORDER by `logs`.`created_time` ASC";
-                    $created_mem=$pdo->$query($sql)->fetch(PDO::FETCH_ASSOC);       
-                 }
-                 ?>
-                <button class='btn btn-secondary border border-dark border-1'
-                        onclick="location.href='?do=vote_edit&id=<?= $row['id']; ?>'">更新</button>
+                $logs_chk = $pdo->query("select `topic_id`,`records` from `logs` where `mem_id`='{$_SESSION['login']}'")->fetchAll(PDO::FETCH_ASSOC);
+                // DD($logs_chk);
+                $tmp_chk = false;
+                foreach ($logs_chk as $log_chk)
+                    if (($row['id'] == $log_chk['topic_id']) && ($log_chk['records'] != "")) {
+                        $tmp_chk = true;
+                    }
+                switch ($tmp_chk) {
+                    case 'true':
+                ?>
+                        <button class='btn btn-dark border border-dark border-1 disabled'>已投票</button>
+                    <?php
+                        break;
+                    default:
+                    ?>
+                        <button class='btn btn-dark border border-dark border-1' onclick="location.href='?do=vote_page&id=<?= $row['id']; ?>'">可投票</button>
+                <?php
+                        break;
+                }
+
+                ?>
+
             </div>
         </div>
-        <?php
+    <?php
     }
-?>
+    ?>
 
 </div>
 
 <button onclick="location.href='?do=add_vote'" class="btn btn-primary">新增投票</button>
-

@@ -78,7 +78,7 @@
             </div>
         <?php } ?>
     </div>
-    <div class="backTop btn btn-info fs-5 border border-primary border-2" onclick="location.href='#'">Top</div>
+    <div class="backTop btn btn-info fs-5 border border-primary border-2 shadow"><a href='#'>Top</a></div>
 </div>
 
 

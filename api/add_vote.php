@@ -64,3 +64,4 @@ if($chk>0){
     dd($log);
 
 }
+to("../index.php?do=vote_all");

@@ -7,70 +7,79 @@ $options = $pdo->query("select * from `optionsv` where `subject_id`='{$_GET['id'
 
 ?>
 
-<h1>編輯
-    主題</h1>
-<form action="../api/evote_dit.php" method="post">
-    <div>
-        <label for="subject">主題說明：</label>
-        <input type="text" name="subject" id="subject" class="subject-input" value="<?= $topic['subject']; ?>">
-    </div>
-    <div class="time-set">
-        <div class="time-item">
-            <label for="open_time">開放時間：</label>
-            <input type="datetime-local" name="open_time" id="open_time" value="<?= $topic['open_time']; ?>">
+<p class="fs-1 text-center">編輯主題</p>
+<div class="container">
+    <form action="../api/vote_edit.php" method="post" enctype="multipart/form-data">
+        <div class="input-group  mb-3">
+            <label class="input-group-text bg-primary text-light col-2" for="topic">主題說明</label>
+            <input type="text" class="form-control" name="topic" id="topic" value="<?= $topic['subject']; ?>">
         </div>
-        <div class="time-item">
-            <label for="close_time">關閉時間：</label>
-            <input type="datetime-local" name="close_time" id="close_time" value="<?= $topic['close_time']; ?>">
+        <div class="input-group  mb-3">
+            <label class="input-group-text bg-success text-light col-2" for="open_time">開放時間</label>
+            <input type="datetime-local" class="form-control" name="open_time" id="open_time" value="<?= $topic['open_time']; ?>">
         </div>
-    </div>
-    <div>
-        <label for="type">單複選：</label>
-        <input type="radio" name="type" value="0" <?= ($topic['type'] == 0) ? 'checked' : ''; ?>>單選&nbsp;&nbsp;
-        <input type="radio" name="type" value="1" <?= ($topic['type'] == 1) ? 'checked' : ''; ?>>複選
-    </div>
-    <div>
-        <label for="type">是否公開：</label>
-        <input type="radio" name="login" value="0" <?= ($topic['private'] == 0) ? 'checked' : ''; ?>>是&nbsp;&nbsp;
-        <input type="radio" name="login" value="1" <?= ($topic['private'] == 1) ? 'checked' : ''; ?>>否
-    </div>
-    <hr>
-    <div class="options">
-        <?php
-        foreach ($options as $opt) {
-        ?>
-            <div>
-                <label for="description">項目：</label>
-                <input type="text" name="description[]" class="description-input" value="<?= $opt['description']; ?>">
-                <span onclick="addOption()">+</span>
-                <span onclick="removeOption(this)">-</span>
-                <input type="hidden" name="opt_id[]" value="<?= $opt['id']; ?>">
+        <div class="input-group  mb-3">
+            <label class="input-group-text bg-danger text-light col-2" for="close_time">關閉時間</label>
+            <input type="datetime-local" class="form-control" name="close_time" id="close_time" value="<?= $topic['close_time']; ?>">
+        </div>
+        <div class="input-group  mb-3">
+            <label class="input-group-text bg-info form-check-label form-check form-check-inline col-2" for="type">單 複 選</label>
+            <div class="input-group-text">
+                <input type="radio" class="form-check-input" name="type" class="form-control" value="0" <?= ($topic['type'] == 0) ? 'checked' : ''; ?>>&nbsp;單&nbsp;選&nbsp;
             </div>
-
-        <?php
-        }
-        ?>
-    </div>
-    <div>
-        <input type="hidden" name="subject_id" value="<?= $topic['id']; ?>">
-        <input type="submit" value="編輯">
-    </div>
-</form>
+            <div class="input-group-text">
+                <input type="radio" class="form-check-input" name="type" class="form-control" value="1" <?= ($topic['type'] == 1) ? 'checked' : ''; ?>>&nbsp;複&nbsp;選
+            </div>
+        </div>
+        <div class="input-group  mb-3">
+            <label class="input-group-text bg-info form-check-label form-check form-check-inline col-2 " for="private">是否公開</label>
+            <div class="input-group-text">
+                <input type="radio" class="form-check-input" name="private" value="0" <?= ($topic['private'] == 0) ? 'checked' : ''; ?>>&nbsp;公&nbsp;開&nbsp;
+            </div>
+            <div class="input-group-text">
+                <input type="radio" class="form-check-input" name="private" value="1" <?= ($topic['private'] == 1) ? 'checked' : ''; ?>>&nbsp;不公開&nbsp;
+            </div>
+        </div>
+        <hr>
+        <div>
+            <?php
+            foreach ($options as $opt) {
+            ?>
+                <div class="input-group  mb-3 options">
+                    <label class="input-group-text btn btn-secondary col-2" for="description">項 目</label>
+                    <input type="text" class="form-control" name="description[]" class="description-input" value="<?= $opt['description']; ?>">
+                    <span class="input-group-text btn btn-warning align-middle" style="font-size:24px;line-height:0.8" onclick="addOption()">+</span>
+                    <span class="input-group-text btn btn-dark align-middle" style="font-size:24px;line-height:0.8" onclick="removeOption(this)">-</span>
+                    <input type="hidden" name="opt_id[]" value="<?= $opt['id']; ?>">
+                </div>
+            <?php
+            }
+            ?>
+        </div>
+        <div class="row  mx-auto">
+            <input type="hidden" name="subject_id" value="<?= $topic['id']; ?>">
+            <input type="submit" class=" btn btn-primary" value="編輯">
+        </div>
+    </form>
+    <form action="../api/vote_del.php" method="post">
+        <div class="row  mx-auto">
+            <input type="hidden" name="subject_id" value="<?= $topic['id']; ?>">
+            <input type="submit" class=" btn btn-danger" value="刪除">
+        </div>
+    </form>
+</div>
 
 
 <script>
     function addOption() {
         let opt = `
-    <div class="form-group offset-2 options col-7">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="description">項目</span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="description[]">
-                &nbsp&nbsp&nbsp
-                <span onclick="addOption()" class="lh-lg fs-5">+</span> 
-                &nbsp&nbsp&nbsp
-                <span onclick="removeOption(this)" class="lh-lg fs-5">-</span>
-            </div>
-        </div>`
+                <div class="input-group  mb-3 options">
+                    <label class="input-group-text btn btn-secondary col-2" for="description">項 目</label>
+                    <input type="text" class="form-control" name="description[]" class="description-input" value="<?= $opt['description']; ?>">
+                    <span class="input-group-text btn btn-warning align-middle" style="font-size:24px;line-height:0.8" onclick="addOption()">+</span>
+                    <span class="input-group-text btn btn-dark align-middle" style="font-size:24px;line-height:0.8" onclick="removeOption(this)">-</span>
+                    <input type="hidden" name="opt_id[]" value="<?= $opt['id']; ?>">
+                </div>`
         $(".options").parent().append(opt);
     }
 

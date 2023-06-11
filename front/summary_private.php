@@ -43,10 +43,6 @@ include_once "./api/summary_all.php";
         </div>
         <div class="summary-private-content-center">
             <canvas id="canvaAllprivate"></canvas>
-            <div class="absolute-center text-center">
-                <p>外圈：私人收支</p>
-                <p>內圈：公開收支</p>
-            </div>
         </div>
         <div class="summary-private-content-right">
             <div class="summary-private-content-right-half">
@@ -81,9 +77,10 @@ include_once "./api/summary_all.php";
             </div>
         </div>
     </div>
-    <div class="summary-private-footer"></div>
+    <div class="summary-private-footer absolute-center text-center">
+    </div>
 </div>
-<?php include_once "./front/vote_list.php"; ?>
+<?php include_once "./front/vote_all.php"; ?>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1"></script>
 
@@ -92,16 +89,16 @@ include_once "./api/summary_all.php";
     const canvaAllprivate = document.getElementById('canvaAllprivate');
 
     const dataprivate = {
-        labels: ['收入', '支出'],
+        labels: ['支出', '收入'],
         datasets: [{
             label: '公開',
-            data: [<?= $sumIn; ?>, <?= $sumOut; ?>],
-            backgroundColor: ['#7EC1EE', '#FFB0C1'],
+            data: [<?= $sumOut; ?>, <?= $sumIn; ?>],
+            backgroundColor: ['#FFB0C1', '#7EC1EE'],
             hoverOffset: 4
         }, {
             label: '私人',
-            data: [<?= $sumInprivate; ?>, <?= $sumOutprivate; ?>],
-            backgroundColor: ['#36A2EB', '#FF6384'],
+            data: [<?= $sumOutprivate; ?>, <?= $sumInprivate; ?>],
+            backgroundColor: ['#FF6384', '#36A2EB'],
             hoverOffset: 4
         }]
     };
@@ -109,13 +106,45 @@ include_once "./api/summary_all.php";
     // 创建甜甜圈图的配置选项
     const optionsprivate = {
         responsive: true,
-        cutout: '60%', // 內環半徑
+        cutout: '60%',
         plugins: {
             legend: {
-                display: true, // 圖例顯示
+                display: true,
+                labels: {
+                    font: {
+                        size: 12
+                    },
+                    generateLabels: function(chart) {
+                        const data = chart.data;
+                        if (data.labels.length && data.datasets.length) {
+                            return data.datasets.flatMap(function(dataset, datasetIndex) {
+                                const backgroundColors = dataset.backgroundColor;
+                                return data.labels.map(function(label, labelIndex) {
+                                    const backgroundColor = backgroundColors[labelIndex];
+                                    return {
+                                        text: dataset.label + ' - ' + label,
+                                        fillStyle: backgroundColor,
+                                        hidden: false,
+                                        lineCap: 'round',
+                                        lineDash: [],
+                                        lineDashOffset: 0,
+                                        lineJoin: 'round',
+                                        lineWidth: 0,
+                                        strokeStyle: backgroundColor,
+                                        pointStyle: 'circle',
+                                        rotation: 0
+                                    };
+                                });
+                            });
+                        }
+                        return [];
+                    }
+                }
             }
         }
     };
+
+
 
 
     const doughnutChartoptionsprivate = new Chart(canvaAllprivate, {

@@ -1,85 +1,104 @@
-<p class="fs-1 text-center">新增主題</p>
-<div class="container">
-    <form class="form-horizontal" action="../api/add_vote.php" method="post" enctype="multipart/form-data">
-        <div class="form-group offset-2">
-            <label class="control-label col-sm-2" for="topic">題目:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="topic" id="topic" placeholder="輸入投票題目">
+<link rel="stylesheet" href="../css/style_votelist.css">
+
+<div class="container vote-list">
+    <div class="row justify-content-md-center text-center  fw-bolder fs-3">
+        <div class="col-md-1 text-center">
+            序號
+        </div>
+        <div class="col-md-3">
+            投票主題
+        </div>
+        <div class="col-md-3  text-center">
+            功能
+        </div>
+    </div>
+    <?php
+    if (isset($_SESSION['login'])) {
+        $sql = "select * from `topicsv` where `close_time` >= '" . date("Y-m-d H:i:s") . "'";
+        $sql_created_topics = "SELECT `topicsv`.`subject`,
+                                      `logs`.`created_time`,
+                                      `members`.`acc`
+                               FROM `logs` 
+                               LEFT JOIN `topicsv` ON `topicsv`.`id`=`logs`.`topic_id`
+                               LEFT JOIN `members` ON `members`.`id`=`logs`.`mem_id`
+                               GROUP By `topicsv`.`id`
+                               ORDER by `logs`.`created_time` ASC";
+        $created_topics = q($sql_created_topics);
+    } else {
+        $sql = "select * from `topicsv` where `private`=0 AND `close_time` >= '" . date("Y-m-d H:i:s") . "'";
+    };
+    $rows = q($sql);
+
+    foreach ($rows as $idx => $row) {
+    ?>
+        <div class="row justify-content-md-center fs-5  mb-1">
+            <div class="col-md-1 text-center">
+                <?= $idx + 1; ?>
+            </div>
+            <div class="col-md-3 fw-bolder">
+                <?php
+                echo $row['subject'];
+                if (isset($_SESSION['login'])) {
+                    foreach ($created_topics as $created_topic) {
+                        if ($created_topic['subject'] == $row['subject'] && $created_topic['acc'] == $_SESSION['login']) {
+                ?>
+                            <button class='btn btn-info border border-dark border-1' onclick="location.href='?do=vote_edit&id=<?= $row['id']; ?>'">修正</button>
+                <?php
+                        }
+                    }
+                }
+                ?>
+            </div>
+            <div class="col-md-3 text-center">
+                <?php
+                switch ($row['type']) {
+                    case 0:
+                        echo "<button class='btn btn-primary rounded-circle border border-dark'>";
+                        echo "單";
+                        break;
+                    case 1:
+                        echo "<button class='btn btn-warning rounded-circle border border-dark'>";
+                        echo "多";
+                        break;
+                }
+                ?>
+                </button>
+                <?php
+                if ($row['private'] == 1) {
+                    echo "<button class='btn btn-danger border border-dark border-1 rounded-pill '>";
+                    echo "私人";
+                } else {
+                    echo "<button class='btn btn-success border border-dark border-1 rounded-pill' >";
+                    echo "公開";
+                }
+                ?>
+                </button>
+                <?php
+                $logs_chk = $pdo->query("select `topic_id`,`records` from `logs` where `mem_id`='{$_SESSION['login']}'")->fetchAll(PDO::FETCH_ASSOC);
+                // DD($logs_chk);
+                $tmp_chk = false;
+                foreach ($logs_chk as $log_chk)
+                    if (($row['id'] == $log_chk['topic_id']) && ($log_chk['records'] != "")) {
+                        $tmp_chk = true;
+                    }
+                switch ($tmp_chk) {
+                    case 'true':
+                ?>
+                        <button class='btn btn-dark border border-dark border-1 disabled'>已投票</button>
+                    <?php
+                        break;
+                    default:
+                    ?>
+                        <button class='btn btn-dark border border-dark border-1' onclick="location.href='?do=vote_page&id=<?= $row['id']; ?>'">可投票</button>
+                <?php
+                        break;
+                }
+
+                ?>
             </div>
         </div>
-        <div class="form-group offset-2">
-            <label class="control-label col-sm-offset-2 col-sm-2" for="open_time">開放時間:</label>
-            <div class="col-sm-10">
-                <input type="datetime-local" class="form-control" id="open_time" name="open_time">
-            </div>
-        </div>
-        <div class="form-group offset-2">
-            <label class="control-label col-sm-offset-2 col-sm-2" for="close_time">關閉時間:</label>
-            <div class="col-sm-10">
-                <input type="datetime-local" class="form-control" id="close_time"  name="close_time">
-            </div>
-        </div>
-        <div class="form-group offset-2">
-            <label class="control-label col-sm-2" for="type">單複選：</label>
-            <div class="col-sm-offset-4 col-sm-6">
-                <input type="radio" name="type" value="0">單選&nbsp;&nbsp;
-                <input type="radio" name="type" value="1">複選
-            </div>
-        </div>
-        <div class="form-group offset-2">
-            <label class="control-label col-sm-4" for="private">是否公開：</label>
-            <div class="col-sm-offset-4 col-sm-6">
-                <input type="radio" name="private" value="0">是&nbsp;&nbsp;
-                <input type="radio" name="private" value="1">否
-            </div>
-        </div>
-        <div class="form-group offset-2 col-8">
-            <label class="control-label col-sm-offset-2 col-sm-4" for="img">上傳圖檔：</label>
-            <input type="file" class="form-control " id="img" name="img">
-        </div>
-        <hr>
-        <div>
-            <div class="form-group offset-2 options col-7">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="description">項目</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="description[]">
-                    &nbsp&nbsp&nbsp
-                    <span onclick="addOption()" class="lh-lg fs-5">+</span>
-                    &nbsp&nbsp&nbsp
-                    <span onclick="removeOption(this)" class="lh-lg fs-5">-</span>
-                </div>
-            </div>
-        </div>
-        <div class="form-group  offset-2 ">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary">確認</button>
-            </div>
-    </form>
+    <?php
+    }
+    ?>
+
 </div>
-
-</main>
-</body>
-
-</html>
-
-<script>
-    function addOption() {
-        let opt = `
-        <div class="form-group offset-2 options col-7">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="description">項目</span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="description[]">
-                &nbsp&nbsp&nbsp
-                <span onclick="addOption()" class="lh-lg fs-5">+</span> 
-                &nbsp&nbsp&nbsp
-                <span onclick="removeOption(this)" class="lh-lg fs-5">-</span>
-            </div>
-        </div>`
-        $(".options").parent().append(opt);
-    }
-
-    function removeOption(el) {
-        let dom = $(el).parent()
-        $(dom).remove();
-    }
-</script>
