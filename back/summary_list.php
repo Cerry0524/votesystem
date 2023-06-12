@@ -7,7 +7,7 @@
 <div class="content-top">
        <h1>收支清單</h1>
 </div>
-<table class="search-table table table-hover table-striped">
+<table class="search-table table table-hover table-striped text-center">
        <tr class="search-table-tr1">
               <th style="width: 5%;"></th>
               <th class="search-table-th1">

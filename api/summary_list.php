@@ -20,9 +20,24 @@ $sql_summary_select = "SELECT `summary`.`effective_time` as '日期',
                              `summary`.`price` as '金額',
                              `summary`.`private` as '公開/私人',
                              `summary`.`continuous` as '持續性'
-                      FROM `summary`, `categories` ";
+                      FROM `summary`, `categories`,`logs`,`members` ";
 
 //sql  where判別
+/* SELECT `summary`.`effective_time` as '日期',
+                             `summary`.`class` as '屬性',
+                             `summary`.`project` as '項目',
+                             `summary`.`details` as '細節',
+                             `categories`.`category` as '類別',
+                             `summary`.`amount` as '數量',
+                             `summary`.`price` as '金額',
+                             `summary`.`private` as '公開/私人',
+                             `summary`.`continuous` as '持續性'
+FROM `summary`
+JOIN `categories` ON `summary`.`category_id` = `categories`.`id`
+LEFT JOIN `logs` ON `summary`.`id` = `logs`.`project_id`
+JOIN `members` ON `logs`.`mem_id` = `members`.`id`
+WHERE (`members`.`acc`='admin' AND `summary`.`private`=1 ) OR `summary`.`private`=0
+ORDER BY `summary`.`effective_time`; */
 
 switch ($class) {
     case 'in':
@@ -106,15 +121,17 @@ switch ($btnClick) {
 }
 
 //where組合
-$sql_summary_where = "WHERE `summary`.`category_id`=`categories`.`id`" .
-    $class_check . $private_check . $cont_check;
+$sql_summary_where = "WHERE `summary`.`category_id`=`categories`.`id` AND 
+                            `logs`.`project_id`=`summary`.`id` AND
+                            `members`.`id`=`logs`.`mem_id`".
+                        $class_check . $private_check . $cont_check;
 // echo $sql_summary_where;
 //orderby組合
 $sql_summary_select_order = " Order By " . $select_order . ";";
 // echo $sql_summary_select_order;
 
 $sql_summary_lists = $sql_summary_select . $sql_summary_where . $sql_summary_select_order;
-// echo $sql_summary_lists;
+echo $sql_summary_lists;
 
 $summary_lists = $pdo->query($sql_summary_lists)->fetchALL(PDO::FETCH_ASSOC);
 

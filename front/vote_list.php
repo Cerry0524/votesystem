@@ -7,6 +7,7 @@
         </div>
         <div class="col-md-3">
             投票主題
+            <button onclick="location.href='?do=add_vote'" class="btn btn-primary">新增</button>
         </div>
         <div class="col-md-3  text-center">
             功能
@@ -105,4 +106,3 @@
 
 </div>
 
-<button onclick="location.href='?do=add_vote'" class="btn btn-primary">新增投票</button>
