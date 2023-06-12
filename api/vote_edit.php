@@ -3,7 +3,7 @@ include_once "../db.php";
 
 update('topicsv',[
     'id' => $_POST['subject_id'],
-    'topic' => $_POST['topic'],
+    'subject' => $_POST['topic'],
     'open_time'=>$_POST['open_time'],
     'close_time'=>$_POST['close_time'],
     'type'=>$_POST['type'],
@@ -36,3 +36,5 @@ if(isset($_POST['opt_id'])){
     }
 
 }
+
+to("../index.php?do=vote_edit&id={$_POST['subject_id']}");

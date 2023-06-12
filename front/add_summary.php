@@ -2,8 +2,8 @@
 <div class="formcss">
     <form action="./api/add_summary.php" method="post" enctype="multipart/form-data">
         <div class="content-top">
-            <div name="incomeBtn" id="incomeBtn" value="0">收入</div>
-            <div name="expendBtn" id="expendBtn" value="1">支出</div>
+            <div name="incomeBtn" id="incomeBtn" class="text-center" value="0">收入</div>
+            <div name="expendBtn" id="expendBtn" class="text-center" value="1">支出</div>
         </div>
         <div class="add-table">
             <div class="add-table-div1 ">

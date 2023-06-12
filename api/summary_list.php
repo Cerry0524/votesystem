@@ -114,7 +114,7 @@ $sql_summary_select_order = " Order By " . $select_order . ";";
 // echo $sql_summary_select_order;
 
 $sql_summary_lists = $sql_summary_select . $sql_summary_where . $sql_summary_select_order;
-echo $sql_summary_lists;
+// echo $sql_summary_lists;
 
 $summary_lists = $pdo->query($sql_summary_lists)->fetchALL(PDO::FETCH_ASSOC);
 

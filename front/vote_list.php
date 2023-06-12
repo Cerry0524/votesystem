@@ -73,8 +73,12 @@
                 ?>
                 </button>
                 <?php
-                $logs_chk = $pdo->query("select `topic_id`,`records` from `logs` where `mem_id`='{$_SESSION['login']}'")->fetchAll(PDO::FETCH_ASSOC);
-                // DD($logs_chk);
+                $mem_id=find('members',[
+                    'acc'=>$_SESSION['login'],
+                ]);
+                // dd($mem_id);
+                $logs_chk = $pdo->query("select `topic_id`,`records` from `logs` where `mem_id`='{$mem_id['id']}'")->fetchAll(PDO::FETCH_ASSOC);
+                // dd($logs_chk);
                 $tmp_chk = false;
                 foreach ($logs_chk as $log_chk)
                     if (($row['id'] == $log_chk['topic_id']) && ($log_chk['records'] != "")) {
@@ -92,9 +96,7 @@
                 <?php
                         break;
                 }
-
                 ?>
-
             </div>
         </div>
     <?php

@@ -13,7 +13,9 @@
         </div>
     </div>
     <?php
-    if (isset($_SESSION['login'])) {
+    if (!isset($_SESSION['login'])) {
+        $sql = "select * from `topicsv` where `private`=0 AND `close_time` >= '" . date("Y-m-d H:i:s") . "'";
+    } else {
         $sql = "select * from `topicsv` where `close_time` >= '" . date("Y-m-d H:i:s") . "'";
         $sql_created_topics = "SELECT `topicsv`.`subject`,
                                       `logs`.`created_time`,
@@ -24,10 +26,9 @@
                                GROUP By `topicsv`.`id`
                                ORDER by `logs`.`created_time` ASC";
         $created_topics = q($sql_created_topics);
-    } else {
-        $sql = "select * from `topicsv` where `private`=0 AND `close_time` >= '" . date("Y-m-d H:i:s") . "'";
     };
     $rows = q($sql);
+
 
     foreach ($rows as $idx => $row) {
     ?>
@@ -44,7 +45,7 @@
                 ?>
                             <button class='btn btn-info border border-dark border-1' onclick="location.href='?do=vote_edit&id=<?= $row['id']; ?>'">修正</button>
                 <?php
-                        }
+                        };
                     }
                 }
                 ?>
@@ -74,26 +75,35 @@
                 ?>
                 </button>
                 <?php
-                $logs_chk = $pdo->query("select `topic_id`,`records` from `logs` where `mem_id`='{$_SESSION['login']}'")->fetchAll(PDO::FETCH_ASSOC);
-                // DD($logs_chk);
-                $tmp_chk = false;
-                foreach ($logs_chk as $log_chk)
-                    if (($row['id'] == $log_chk['topic_id']) && ($log_chk['records'] != "")) {
-                        $tmp_chk = true;
-                    }
-                switch ($tmp_chk) {
-                    case 'true':
+                if (isset($_SESSION['login'])) {
+                    $mem_id = find('members', [
+                        'acc' => $_SESSION['login'],
+                    ]);
+                    // dd($mem_id);
+                    $logs_chk = $pdo->query("select `topic_id`,`records` from `logs` where `mem_id`='{$mem_id['id']}'")->fetchAll(PDO::FETCH_ASSOC);
+                    // dd($logs_chk);
+                    $tmp_chk = false;
+                    foreach ($logs_chk as $log_chk)
+                        if (($row['id'] == $log_chk['topic_id']) && ($log_chk['records'] != "")) {
+                            $tmp_chk = true;
+                        }
+                    switch ($tmp_chk) {
+                        case 'true':
                 ?>
-                        <button class='btn btn-dark border border-dark border-1 disabled'>已投票</button>
+                            <button class='btn btn-dark border border-dark border-1 disabled'>已投票</button>
+                        <?php
+                            break;
+                        default:
+                        ?>
+                            <button class='btn btn-dark border border-dark border-1' onclick="location.href='?do=vote_page&id=<?= $row['id']; ?>'">可投票</button>
                     <?php
-                        break;
-                    default:
+                            break;
+                    }
+                } else {
                     ?>
-                        <button class='btn btn-dark border border-dark border-1' onclick="location.href='?do=vote_page&id=<?= $row['id']; ?>'">可投票</button>
+                    <button class='btn btn-dark border border-dark border-1' onclick="location.href='?do=vote_page&id=<?= $row['id']; ?>'">可投票</button>
                 <?php
-                        break;
                 }
-
                 ?>
             </div>
         </div>

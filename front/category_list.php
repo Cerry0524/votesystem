@@ -13,26 +13,34 @@
     foreach ($categories as $category) {
     ?>
         <tr>
+            <form action="../api/category_edit.php" method="post">
             <td><?= $i; ?></td>
-            <td><?= $category['category']; ?></td>
-            <td><?= $category['description']; ?></td>
+            <td><input class="text-light" type="text" name="category" id="category" value="<?= $category['category']; ?>"></td>
+            <td><input class="text-light" type="text" name="description" id="description" value="<?= $category['description']; ?>"></td>
             <td>
-                <button type="sumbit" onclick="location.ref:?do=" value="">更新</button>
-                <button type="buttom" onclick="location.ref:?do=" value="">刪除</button>
+
+                    <input type="hidden" name="category_id"  value="<?=$category['id'];?>">
+                    <button type="sumbit" value="">更新</button>
+                </form>
+                <form action="../api/category_del.php" method="POST">
+                    <input type="hidden" name="category_id"  value="<?=$category['id'];?>">
+                    <button type=" buttom" value="">刪除</button>
+                </form>
             </td>
         </tr>
     <?php
         $i += 1;
     }
     ?>
-    <form action="./api/add_category.php" method="post"></form>
-    <tr>
-        <td>+</td>
-        <td><input type="text" name="category" id="category"></td>
-        <td><textarea name="description" id="description" cols="30" rows="10"></textarea></td>
-        <td>
-            <button type="sumbit" onclick="location.ref:?do=" value="">新增</button>
-            <button type="buttom" onclick="location.ref:?do=" value="">重製</button>
-        </td>
+    <form action="../api/add_category.php" method="post">
+        <tr>
+            <td>+</td>
+            <td><input  class="text-light"  type="text" name="category" id="category"></td>
+            <td><textarea   class="text-light" name="description" id="description" cols="30" rows="10"></textarea></td>
+            <td>
+                <button type="sumbit">新增</button>
+                <button type="reset">重製</button>
+            </td>
+        </form>
     </tr>
 </table>
