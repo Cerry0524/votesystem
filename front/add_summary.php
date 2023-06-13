@@ -45,11 +45,11 @@
                     <div class="add-table-tr7">
                         <div class="add-table-left">備註</div>
                         <div class="add-table-right">
-                            <input type="radio" name="private[${optionIndex}][]" value="0" checked>公開
+                            <input type="radio" name="private[0][]" value="0" checked>公開
                             &nbsp;&nbsp;&nbsp;
-                            <input type="radio" name="private[${optionIndex}][]" value="1">不公開<br>
-                            <input type="radio" name="continuous[${optionIndex}][]" value="0" checked>無持續
-                            <input type="radio" name="continuous[${optionIndex}][]" value="1">有持續
+                            <input type="radio" name="private[0][]" value="1">不公開<br>
+                            <input type="radio" name="continuous[0][]" value="0" checked>無持續
+                            <input type="radio" name="continuous[0][]" value="1">有持續
                         </div>
                     </div>
                     <div class="add-table-tr8 ">
@@ -71,7 +71,7 @@
 
 
 <script>
-    let optionIndex = 1;
+    let optionIndex = 0;
     let count = 1;
 
     function addOption(el) {
@@ -118,11 +118,11 @@
                     <div class="add-table-tr7">
                         <div class="add-table-left">備註</div>
                         <div class="add-table-right">
-                            <input type="radio" name="private[${optionIndex}][]" value="0" checked>公開
+                            <input type="radio" name="private[${optionIndex + 1}][]" value="0" checked>公開
                             &nbsp;&nbsp;&nbsp;
-                            <input type="radio" name="private[${optionIndex}][]" value="1">不公開<br>
-                            <input type="radio" name="continuous[${optionIndex}][]" value="0" checked>無持續
-                            <input type="radio" name="continuous[${optionIndex}][]" value="1">有持續
+                            <input type="radio" name="private[${optionIndex + 1}][]" value="1">不公開<br>
+                            <input type="radio" name="continuous[${optionIndex + 1}][]" value="0" checked>無持續
+                            <input type="radio" name="continuous[${optionIndex + 1}][]" value="1">有持續
                         </div>
                     </div>
                     <div class="add-table-tr8 ">

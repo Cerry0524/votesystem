@@ -1,5 +1,6 @@
 <?php
 
+
 $time = ($_GET['time']) ?? "desc";
 $proj = ($_GET['proj']) ?? "asc";
 $detail = ($_GET['detail']) ?? "asc";
@@ -10,6 +11,7 @@ $class = ($_GET['class']) ?? "asc";
 $private = ($_GET['private']) ?? "asc";
 $cont = ($_GET['cont']) ?? "asc";
 $btnClick = ($_GET['btn']) ?? "1";
+
 
 $sql_summary_select = "SELECT `summary`.`effective_time` as '日期',
                              `summary`.`class` as '屬性',

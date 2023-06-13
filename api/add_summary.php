@@ -1,16 +1,16 @@
 <?php
 include_once "../db.php";
 
-// echo "<pre>";
-// print_r($_POST['project']);
-// print_r($_POST['details']);
-// print_r($_POST['amount']);
-// print_r($_POST['price']);
-// print_r($_POST['eff_time']);
-// print_r($_POST['private']);
-// print_r($_POST['continuous']);
-// print_r($_FILES['imgInput']);
-// echo "</pre>";
+echo "<pre>";
+print_r($_POST['project']);
+print_r($_POST['details']);
+print_r($_POST['amount']);
+print_r($_POST['price']);
+print_r($_POST['eff_time']);
+print_r($_POST['private']);
+print_r($_POST['continuous']);
+print_r($_FILES['imgInput']);
+echo "</pre>";
 
 
 for ($i = 0; $i < count($_POST['project']); $i++) {
@@ -49,12 +49,16 @@ for ($i = 0; $i < count($_POST['project']); $i++) {
         echo "圖片上傳成功";
     }
 
-    $img_id=find('images', ['img' => $img_name ]);
+    $img_id = find('images', ['img' => $img_name]);
+
+    $mem_id = "";
+    $mem_id = find('members', ['acc' => $_SESSION['login']]);
+    dd($mem_id);
 
     insert('logs', [
-        'mem_id' => $_POST['mem_id'][$i],
+        'mem_id' => $mem_id['id'],
         'project_id' => $project_id['id'],
-        'img_id' => $img_id,
+        'img_id' => $img_id['id'],
     ]);
 
     if ($category_id > 0) {
@@ -73,10 +77,6 @@ for ($i = 0; $i < count($_POST['project']); $i++) {
     ], [
         'project' => $_POST['project'][$i]
     ]);
-
-
-   
 }
 
-// header("location:../?do=summary_list");
-to ("../?do=summary_list");
+to ("../index.php?do=summary_list&btn=2");
